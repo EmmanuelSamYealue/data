@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECH 307 – Data Mining Techniques: Course Description &amp; Syllabus</title>
+<style>
+  :root{
+    --ink:#1e293b; --muted:#475569; --line:#cbd5e1;
+    --blue:#2563eb; --blue-l:#eff6ff; --green:#16a34a; --green-l:#ecfdf5;
+    --amber:#ca8a04; --amber-l:#fefce8; --red:#dc2626; --red-l:#fef2f2;
+    --purple:#7c3aed; --purple-l:#f5f3ff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#f1f5f9; color:var(--ink);
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    font-size:15.5px; line-height:1.62;
+  }
+  .sheet{
+    max-width:1000px; margin:0 auto; background:#fff;
+    padding:44px 52px 70px; box-shadow:0 0 24px rgba(15,23,42,.09);
+  }
+  header.doc-head{
+    border-bottom:4px solid var(--blue); padding-bottom:20px; margin-bottom:30px;
+  }
+  header.doc-head .code{
+    display:inline-block; background:var(--blue); color:#fff; font-weight:700;
+    letter-spacing:.06em; padding:5px 13px; border-radius:6px; font-size:13px;
+  }
+  header.doc-head h1{ font-size:2rem; margin:14px 0 4px; line-height:1.2; }
+  header.doc-head .sub{ color:var(--muted); font-size:1.02rem; margin:0; }
+  h2{
+    font-size:1.28rem; margin:44px 0 14px; padding-bottom:7px;
+    border-bottom:2px solid var(--line); color:#0f172a;
+  }
+  h2::before{
+    content:""; display:inline-block; width:6px; height:19px;
+    background:var(--blue); border-radius:3px; margin-right:10px;
+    vertical-align:-3px;
+  }
+  h3{ font-size:1.05rem; margin:26px 0 8px; color:#0f172a; }
+  p{ margin:10px 0; }
+  ul,ol{ margin:10px 0 10px 4px; padding-left:22px; }
+  li{ margin:5px 0; }
+  table{
+    width:100%; border-collapse:collapse; margin:16px 0; font-size:14.3px;
+  }
+  th,td{ border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top; }
+  th{ background:#e2e8f0; font-weight:700; }
+  tbody tr:nth-child(even){ background:#f8fafc; }
+  code{
+    background:#eef2f7; padding:1.5px 5px; border-radius:4px;
+    font-family:ui-monospace,Consolas,"Courier New",monospace; font-size:13.4px;
+  }
+  pre{
+    background:#0f172a; color:#e2e8f0; padding:15px 17px; border-radius:9px;
+    overflow-x:auto; font-size:13.3px; line-height:1.55; margin:14px 0;
+    font-family:ui-monospace,Consolas,"Courier New",monospace;
+  }
+  .box{
+    border-left:5px solid var(--blue); background:var(--blue-l);
+    padding:14px 18px; border-radius:0 8px 8px 0; margin:18px 0;
+  }
+  .box.amber{ border-left-color:var(--amber); background:var(--amber-l); }
+  .box.green{ border-left-color:var(--green); background:var(--green-l); }
+  .box.red{ border-left-color:var(--red); background:var(--red-l); }
+  .box.purple{ border-left-color:var(--purple); background:var(--purple-l); }
+  .box > .ttl{ font-weight:700; display:block; margin-bottom:5px; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .card{
+    border:1px solid var(--line); border-radius:10px; padding:15px 18px; background:#fbfdff;
+  }
+  .card h4{ margin:0 0 8px; font-size:.98rem; color:#0f172a; }
+  .card p, .card ul{ margin:6px 0; font-size:14.2px; }
+  .toc{
+    background:#f8fafc; border:1px solid var(--line); border-radius:10px;
+    padding:16px 24px; margin:26px 0;
+  }
+  .toc ol{ margin:6px 0; columns:2; column-gap:34px; font-size:14.3px; }
+  .toc a{ color:var(--blue); text-decoration:none; }
+  .toc a:hover{ text-decoration:underline; }
+  .tag{
+    display:inline-block; font-size:11.6px; font-weight:700; letter-spacing:.04em;
+    padding:2px 9px; border-radius:20px; background:#dbeafe; color:#1d4ed8;
+    vertical-align:2px; margin-left:8px;
+  }
+  .small{ font-size:13.6px; color:var(--muted); }
+  footer.doc-foot{
+    margin-top:56px; padding-top:18px; border-top:1px solid var(--line);
+    font-size:13px; color:var(--muted); text-align:center;
+  }
+  @media (max-width:760px){
+    .sheet{ padding:26px 18px 50px; }
+    .grid2{ grid-template-columns:1fr; }
+    .toc ol{ columns:1; }
+    header.doc-head h1{ font-size:1.5rem; }
+    table{ display:block; overflow-x:auto; }
+  }
+  @media print{
+    body{ background:#fff; font-size:11.5pt; }
+    .sheet{ box-shadow:none; padding:0; max-width:none; }
+    pre{ background:#f4f6f8; color:#000; border:1px solid #ccc; }
+    h2{ page-break-after:avoid; }
+    table,pre,.box,.card{ page-break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header class="doc-head">
+  <span class="code">TECH 307</span>
+  <h1>Data Mining Techniques</h1>
+  <p class="sub">Course Description, Syllabus, Learning Outcomes and Resources</p>
+<div>
+  <a href="index.html">Back to origin</a>
+</div>
+</header>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#s1">Course Identification</a></li>
+    <li><a href="#s2">Course Description</a></li>
+    <li><a href="#s3">Course Learning Outcomes</a></li>
+    <li><a href="#s4">Pre-requisites &amp; Co-requisites</a></li>
+    <li><a href="#s5">Course Content &amp; Weekly Syllabus</a></li>
+    <li><a href="#s6">Teaching &amp; Learning Strategies</a></li>
+    <li><a href="#s7">Assessment</a></li>
+    <li><a href="#s8">Recommended Tools &amp; Software</a></li>
+    <li><a href="#s9">Prescribed Textbook</a></li>
+    <li><a href="#s10">Additional References</a></li>
+    <li><a href="#s11">Academic Integrity, Ethics &amp; Data Policy</a></li>
+    <li><a href="#s12">CLO ↔ Assessment Mapping</a></li>
+    <li><a href="#s13">Grading Scale</a></li>
+  </ol>
+</div>
+
+<!-- ================= 1 ================= -->
+<h2 id="s1">1. Course Identification</h2>
+<table>
+  <tbody>
+    <tr><th style="width:32%">Course Code</th><td>TECH 307</td></tr>
+    <tr><th>Course Title</th><td>Data Mining Techniques</td></tr>
+    <tr><th>Credit Points</th><td>3 credits hour</td></tr>
+    <tr><th>Duration</th><td>15 teaching weeks + 1 examination week</td></tr>
+    <tr><th>Level</th><td>Undergraduate — Junior Semester I (Level: 300)</td></tr>
+    <tr><th>Delivery Mode</th><td>Face-to-face lectures, computer laboratory practicals, blended online resources</td></tr>
+    <tr><th>Language of Instruction</th><td>English</td></tr>
+    <tr><th>Course Lecturer</th><td> Mr. Emmanuel S. Yealue</td></tr>
+    <tr><th>Contact</th><td> +231888399749, chrommy33@gmail.com</td></tr>
+  </tbody>
+</table>
+
+<!-- ================= 2 ================= -->
+<h2 id="s2">2. Course Description</h2>
+<p>
+  <strong>TECH 307 – Data Mining Techniques</strong> introduces students to the systematic process of
+  discovering useful patterns, relationships and knowledge from large volumes of raw data.
+  The course follows the complete <strong>Knowledge Discovery in Databases (KDD)</strong> pipeline:
+  understanding the problem, selecting and collecting data, cleaning and quality-assuring it,
+  transforming and reducing it, applying a mining technique, evaluating the results, and
+  communicating findings responsibly.
+</p>
+<p>
+  Students learn the distinction between <em>data</em>, <em>information</em>, <em>knowledge</em> and
+  <em>patterns</em>; the major types of data that can be mined (relational databases, data warehouses,
+  transactional data, streams, text and multimedia); and the principal data mining functionalities:
+  concept description, association rule mining, classification, regression, clustering and
+  anomaly detection.
+</p>
+<p>
+  The course is <strong>strongly practical</strong>. Using <strong>Python</strong> with
+  <strong>pandas</strong>, and <strong>matplotlib</strong>, students write
+  working code to load, inspect, clean, transform, visualise and mine real and synthetic datasets.
+  A capstone <strong>mini-project</strong> requires students to apply the whole KDD process end-to-end
+  to a dataset of their own choosing and to defend their results in a short presentation.
+</p>
+<p>
+  Throughout the course, students are expected to reason critically about <strong>ethics,
+  privacy, bias and fairness</strong>. Data mining results can affect real people; students must
+  understand that a model is an advisory tool, not a final judge, and that high-stakes decisions
+  require human oversight, transparency and an appeal mechanism.
+</p>
+
+<div class="box">
+  <span class="ttl">Graduate Attributes Developed</span>
+  <ul style="margin:0">
+    <li><strong>Critical thinking</strong> — evaluating data quality and model results rather than accepting them at face value.</li>
+    <li><strong>Digital literacy</strong> — competent, safe and ethical use of data and analytical software.</li>
+    <li><strong>Communication</strong> — presenting analytical findings to non-technical audiences.</li>
+    <li><strong>Professional ethics</strong> — recognising bias, protecting privacy, documenting decisions.</li>
+  </ul>
+</div>
+
+<!-- ================= 3 ================= -->
+<h2 id="s3">3. Course Learning Outcomes (CLOs)</h2>
+<p>On successful completion of TECH 307, students will be able to:</p>
+<table>
+  <thead>
+    <tr><th style="width:9%">CLO</th><th style="width:63%">Outcome</th><th style="width:14%">Bloom Level</th><th style="width:14%">Mapped Module(s)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CLO1</strong></td>
+      <td>Explain the fundamental concepts of data mining, the data–information–knowledge–pattern hierarchy, and each stage of the KDD process.</td>
+      <td>Understand</td><td>1, 19</td>
+    </tr>
+    <tr>
+      <td><strong>CLO2</strong></td>
+      <td>Identify and classify the different types of data that can be mined and the corresponding data mining functionalities.</td>
+      <td>Understand</td><td>2, 3</td>
+    </tr>
+    <tr>
+      <td><strong>CLO3</strong></td>
+      <td>Collect, inspect, clean and quality-assure datasets, documenting every cleaning decision.</td>
+      <td>Apply</td><td>5, 6, 22</td>
+    </tr>
+    <tr>
+      <td><strong>CLO4</strong></td>
+      <td>Transform and reduce data using normalisation, standardisation, encoding and aggregation, and justify the choice of method.</td>
+      <td>Apply</td><td>7</td>
+    </tr>
+    <tr>
+      <td><strong>CLO5</strong></td>
+      <td>Perform exploratory data analysis, compute and interpret summary statistics, and select appropriate visualisations.</td>
+      <td>Analyse</td><td>8, 9</td>
+    </tr>
+    <tr>
+      <td><strong>CLO6</strong></td>
+      <td>Apply and evaluate data mining algorithms — classification, clustering, regression, association rule mining and anomaly detection — on real datasets.</td>
+      <td>Apply / Analyse</td><td>10–16</td>
+    </tr>
+    <tr>
+      <td><strong>CLO7</strong></td>
+      <td>Evaluate model performance using confusion matrices, accuracy, precision, recall, F1, R², support, confidence and lift, and interpret the results in context.</td>
+      <td>Evaluate</td><td>12, 14, 15</td>
+    </tr>
+    <tr>
+      <td><strong>CLO8</strong></td>
+      <td>Discuss the ethical, privacy, bias and governance implications of data mining, and propose appropriate safeguards.</td>
+      <td>Evaluate</td><td>17, 18</td>
+    </tr>
+    <tr>
+      <td><strong>CLO9</strong></td>
+      <td>Design, execute and communicate a complete data mining mini-project using reproducible code and honest reporting.</td>
+      <td>Create</td><td>19, 20</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ================= 4 ================= -->
+<h2 id="s4">4. Pre-requisites &amp; Co-requisites</h2>
+<p>Based on the program's course guide, TECH 307 builds upon foundational concepts established in Level 100 and Level 200 courses. Students must have completed the following:</p>
+<div class="grid2">
+  <div class="card">
+    <h4>Pre-requisites</h4>
+    <ul>
+      <li><strong>MATH 207: Probability and Statistics</strong> — Essential for understanding data distributions, mean, median, variance, standard deviation, and hypothesis testing.</li>
+      <li><strong>TECH 209: Python Programming</strong> (or TECH 104: Introduction to Programming using C++) — Required for the practical coding components of this course.</li>
+      <li><strong>TECH 102: Database Management System I</strong> — Basic understanding of tables, rows, columns, and relational data structures.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Co-requisites / Helpful Background</h4>
+    <ul>
+      <li><strong>TECH 205: Database Management System II</strong> — SQL querying and data manipulation are highly beneficial for data extraction.</li>
+      <li><strong>TECH 203: System Administration and Virtualization</strong> — Helpful for setting up local development environments and managing datasets.</li>
+      <li>No prior experience with machine learning or specific data mining tools (like WEKA or scikit-learn) is assumed — Module 4 covers the software setup from scratch.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= 5 ================= -->
+<h2 id="s5">5. Course Content &amp; Weekly Syllabus</h2>
+<p>
+  The course is organised into 26 learning modules delivered over 15 teaching weeks.
+  Weeks 1–9 build the conceptual and data-preparation foundation; Weeks 10–14 cover the
+  core mining algorithms; Week 15 consolidates applications, ethics and project work.
+</p>
+
+<table>
+  <thead>
+    <tr><th style="width:8%">Week</th><th style="width:44%">Topic</th><th style="width:34%">Key Concepts</th><th style="width:14%">Module(s)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><strong>Introduction to Data Mining &amp; the KDD Process</strong></td>
+      <td>Definition of data mining; data → information → knowledge → pattern; the six KDD stages; why cleaning dominates real projects.</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>Types of Data Mined</strong></td>
+      <td>Relational databases; data warehouses and the data cube (OLAP); transactional / basket data; sequence, stream, text and web data.</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>Data Mining Functionalities</strong></td>
+      <td>Characterisation vs discrimination; frequent patterns, association and correlation; classification vs regression; cluster analysis; outlier analysis.</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><strong>Software Setup &amp; Environment</strong> <span class="tag">-</span></td>
+      <td>Installing Python and VS Code; virtual environments; pandas, numpy, matplotlib, seaborn, scikit-learn; troubleshooting imports and file paths.</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><strong>Data Collection &amp; Inspection</strong></td>
+      <td>CSV vs DataFrame; records, attributes, features, labels; numerical / categorical / text / date / boolean types; structured vs unstructured; <code>head()</code>, <code>shape</code>, <code>info()</code>, <code>describe()</code>.</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><strong>Data Cleaning &amp; Quality</strong></td>
+      <td>Missing values; duplicates; inconsistent categories; invalid values; outliers; the six data quality dimensions; documenting a cleaning log.</td>
+      <td>6, 22</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><strong>Data Transformation &amp; Reduction</strong></td>
+      <td>Min–max normalisation; z-score standardisation; label vs one-hot encoding and the dummy-variable trap; aggregation; sampling; binning; attribute selection.</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><strong>Exploratory Data Analysis</strong></td>
+      <td>Mean, median, mode; range, standard deviation, IQR; skewness and the mean–median relationship; box plots and the five-number summary.</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><strong>Data Visualisation</strong></td>
+      <td>Bar, histogram, line and scatter plots; choosing the right chart; correlation vs causation; honesty in charts (axes, scale, labelling).</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><strong>Introduction to Classification</strong></td>
+      <td>Supervised learning; features (X) vs label (y); train/test split; why testing on training data is invalid; overfitting.</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><strong>Decision Trees &amp; K-Nearest Neighbours</strong> <span class="tag">-</span></td>
+      <td>Root, decision nodes, branches, leaves; interpretable rules; KNN distance and neighbour voting; why KNN requires scaling.</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><strong>Model Evaluation</strong></td>
+      <td>Confusion matrix (TP/TN/FP/FN); accuracy, precision, recall, F1; why accuracy fails on imbalanced data; choosing a threshold from error costs.</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><strong>Clustering with K-Means</strong></td>
+      <td>Unsupervised learning; intra-class vs inter-class similarity; the K-Means loop; choosing K (elbow, silhouette); interpreting clusters without over-labelling.</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><strong>Association Rule Mining</strong></td>
+      <td>Market basket analysis; support, confidence, lift; interpreting lift &gt; 1, = 1, &lt; 1; minimum-support pruning; actionable vs spurious rules.</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <!-- <td>15</td>
+      <td><strong>Regression, Anomaly Detection, Applications &amp; Ethics</strong></td>
+      <td>Simple and multiple linear regression; R² and MAE; outlier detection with IQR and z-score; applications in education, banking, health, retail, agriculture, cybersecurity; privacy, bias, consent, human oversight.</td>
+      <td>15–18, 20</td> -->
+    </tr>
+    <tr>
+      <!-- <td colspan="4" style="background:#eef4ff">
+        <strong>Mini-Project (runs in parallel from Week 8):</strong> proposal (Week 9) → data collection and cleaning (Week 10) → EDA and charts (Week 11) → modelling and evaluation (Weeks 12–13) → report submission and 5–10 minute presentation (Week 14–15). See the companion document <em>“TECH 307 – Mini-Project Handbook”</em>.
+      </td> -->
+    </tr>
+  </tbody>
+</table>
+
+<!-- <div class="box green">
+  <span class="ttl">Laboratory Component</span>
+  <p style="margin:0">
+    Each week has a two-hour lab. Labs are assessed through submitted notebooks and short
+    lab reports. Twelve fully worked practicals with datasets, code and expected output are
+    provided in the companion <strong>Mini-Project Handbook</strong>. Students are expected to
+    type the code themselves rather than copy–paste, and to explain every output in their
+    own words.
+  </p>
+</div> -->
+
+<!-- ================= 6 ================= -->
+<h2 id="s6">6. Teaching &amp; Learning Strategies</h2>
+<ul>
+  <li><strong>Interactive lectures</strong> — concepts introduced with worked examples and live demonstration of code.</li>
+  <li><strong>Laboratory practicals</strong> — guided, hands-on coding sessions on real and synthetic datasets.</li>
+  <li><strong>Problem-based learning</strong> — small groups analyse a dataset and defend their chosen technique and threshold.</li>
+  <li><strong>Peer review</strong> — students review each other's cleaning logs and charts before final submission.</li>
+  <li><strong>Mini-project</strong> — a scaffolded, semester-long assessment that mirrors professional practice.</li>
+  <li><strong>Blended resources</strong> — an interactive HTML lecture guide (26 modules), screencasts, and a curated reading list.</li>
+</ul>
+
+<!-- ================= 7 ================= -->
+<h2 id="s7">7. Assessment</h2>
+<table>
+  <thead>
+    <tr><th style="width:36%">Assessment Task</th><th style="width:12%">Weight</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Laboratory exercises &amp; short assignments (≈ 6 submissions)</td>
+      <td>20%</td>
+    </tr>
+    <tr>
+      <td>Mid-semester test (written, 90 minutes)</td>
+      <td>20%</td>
+    </tr>
+    <tr>
+      <td><strong>Mini-project</strong> — report (20%) + code (5%) + presentation (5%)</td>
+      <td>30%</td>
+    </tr>
+    <tr>
+      <td>Final examination (written, 2 hours)</td>
+      <td>30%</td>
+    </tr>
+    <tr>
+      <td colspan="4" style="background:#f8fafc"><strong>Total: 100%</strong> &nbsp;|&nbsp; A minimum of 40% in the final examination is normally required to pass the course.</td>
+    </tr>
+  </tbody>
+</table>
+<!--<div class="box amber">
+  <span class="ttl">Mini-Project Marking Guide (100 marks, scaled to 30% of the course)</span>
+  <table style="margin:8px 0 0">
+    <tbody>
+      <tr><td>Problem statement and objectives</td><td style="width:14%">10</td></tr>
+      <tr><td>Dataset source, description and suitability</td><td>10</td></tr>
+      <tr><td>Data quality checks and cleaning</td><td>15</td></tr>
+      <tr><td>Correct choice and application of technique</td><td>20</td></tr>
+      <tr><td>Interpretation, visualisations and evaluation</td><td>15</td></tr>
+      <tr><td>Limitations, privacy and ethics</td><td>10</td></tr>
+      <tr><td>Report quality and presentation</td><td>20</td></tr>
+    </tbody>
+  </table>
+</div>-->
+
+<!-- ================= 8 ================= -->
+<h2 id="s8">8. Recommended Tools &amp; Software</h2>
+
+<h3>8.1 Core stack (required)</h3>
+<table>
+  <thead>
+    <tr><th style="width:22%">Tool</th><th style="width:16%">Version</th><th style="width:62%">Purpose</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Python</strong></td><td>3.10 or later</td><td>Primary programming language for the whole course. Download from python.org — check <em>“Add Python to PATH”</em> during installation.</td></tr>
+    <tr><td><strong>Visual Studio Code</strong></td><td>Latest</td><td>Code editor. Install the official <em>Python</em> extension by Microsoft.</td></tr>
+  <!--  <tr><td><strong>pandas</strong></td><td>≥ 2.0</td><td>Loading, cleaning, reshaping and aggregating tabular data (DataFrames).</td></tr>
+    <tr><td><strong>numpy</strong></td><td>≥ 1.24</td><td>Fast numerical arrays and mathematical operations.</td></tr>
+    <tr><td><strong>matplotlib</strong></td><td>≥ 3.7</td><td>Basic charts: bar, histogram, line, scatter, box plot.</td></tr>
+    <tr><td><strong>seaborn</strong></td><td>≥ 0.12</td><td>Prettier statistical plots built on matplotlib.</td></tr>
+    <tr><td><strong>scikit-learn</strong></td><td>≥ 1.3</td><td>Classification, clustering, regression, scaling, train/test split and metrics.</td></tr>
+  --> <tr><td><strong>jupyter</strong></td><td>≥ 1.0</td><td>Notebook environment (optional but recommended for lab submissions).</td></tr>
+  </tbody>
+</table>
+
+<div class="box">
+  <span class="ttl">One-line installation</span>
+  <pre>python -m pip install pandas numpy matplotlib seaborn scikit-learn jupyter</pre>
+  <p class="small" style="margin:0">
+    If <code>python</code> is not recognised on Windows, try <code>py -m pip install …</code>.
+    On macOS/Linux use <code>python3 -m pip install …</code>.
+  </p>
+</div>
+
+<h3>8.2 Alternative / supplementary tools (optional)</h3>
+<div class="grid2">
+  <div class="card">
+    <h4>Environment managers</h4>
+    <ul>
+      <li><strong>Anaconda / Miniconda</strong> — bundles Python, Jupyter, and most scientific libraries.</li>
+      <li><strong>Google Colab</strong> — free cloud notebooks; nothing to install; good for weak laptops.</li>
+      <li><strong>venv</strong> — Python's built-in virtual environment tool.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Graphical data mining tools</h4>
+    <ul>
+      <li><strong>WEKA 3.8 / 3.9</strong> — classic Java workbench; excellent for visualising decision trees and running algorithms without code.</li>
+      <li><strong>Orange Data Mining</strong> — visual, drag-and-drop workflow builder.</li>
+      <li><strong>RapidMiner</strong> — commercial with a free academic tier.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Spreadsheet &amp; presentation</h4>
+    <ul>
+      <li><strong>Microsoft Excel</strong> or <strong>LibreOffice Calc</strong> — quick inspection of CSV files.</li>
+      <li><strong>PowerPoint / Google Slides</strong> — for the 5–10 minute project presentation.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Version control &amp; documentation</h4>
+    <ul>
+      <li><strong>Git + GitHub</strong> — track changes and submit reproducible code.</li>
+      <li><strong>Markdown</strong> — for writing lab reports and README files.</li>
+    </ul>
+  </div>
+</div>
+
+<h3>8.3 Minimum hardware</h3>
+<ul>
+  <li>Dual-core processor, 4 GB RAM (8 GB recommended), 2 GB free disk space.</li>
+  <li>Any operating system: Windows 10/11, macOS 12+, or a modern Linux distribution.</li>
+  <li>No GPU is required for this course.</li>
+</ul>
+
+<!-- ================= 9 ================= -->
+<h2 id="s9">9. Prescribed Textbook</h2>
+<div class="box purple">
+  <span class="ttl">Primary Text</span>
+  <p style="margin:0">
+    <strong>Han, J., Kamber, M., &amp; Pei, J. (2022).</strong>
+    <em>Data Mining: Concepts and Techniques</em> (4th ed.).
+    Morgan Kaufmann / Elsevier. ISBN 978-0-12-811760-6.
+  </p>
+  <p class="small" style="margin:8px 0 0">
+    The authoritative reference for the conceptual content of Modules 1–3 and 10–16.
+    Chapters 1–3 cover the KDD process, data types and functionalities; Chapters 6–8 cover
+    association, classification and cluster analysis.
+  </p>
+</div>
+
+<div class="box green">
+  <span class="ttl">Primary Practical Text</span>
+  <p style="margin:0">
+    <strong>Witten, I. H., Frank, E., Hall, M. A., &amp; Pal, C. J. (2016).</strong>
+    <em>Data Mining: Practical Machine Learning Tools and Techniques</em> (4th ed.).
+    Morgan Kaufmann. ISBN 978-0-12-804291-5.
+  </p>
+  <p class="small" style="margin:8px 0 0">
+    Pairs directly with WEKA and gives strong coverage of evaluation methodology,
+    which underpins the mini-project marking criteria.
+  </p>
+</div>
+
+<!-- ================= 10 ================= -->
+<h2 id="s10">10. Additional References</h2>
+
+<h3>10.1 Books</h3>
+<table>
+  <thead>
+    <tr><th style="width:52%">Reference</th><th style="width:48%">Best used for</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>McKinney, W. (2022). <em>Python for Data Analysis</em> (3rd ed.). O'Reilly.</td>
+      <td>Deep pandas coverage — loading, cleaning, grouping, reshaping.</td>
+    </tr>
+    <tr>
+      <td>Géron, A. (2022). <em>Hands-On Machine Learning with Scikit-Learn, Keras &amp; TensorFlow</em> (3rd ed.). O'Reilly.</td>
+      <td>Practical scikit-learn pipelines, evaluation, and the next step into TECH 310.</td>
+    </tr>
+    <tr>
+      <td>Provost, F., &amp; Fawcett, T. (2013). <em>Data Science for Business</em>. O'Reilly.</td>
+      <td>Framing analytical problems, choosing metrics, interpreting results for decision-makers.</td>
+    </tr>
+    <tr>
+      <td>Tan, P.-N., Steinbach, M., Karpatne, A., &amp; Kumar, V. (2018). <em>Introduction to Data Mining</em> (2nd ed.). Pearson.</td>
+      <td>Clear alternative explanations of similarity, clustering and classification.</td>
+    </tr>
+    <tr>
+      <td>Zaki, M. J., &amp; Meira, W. (2020). <em>Data Mining and Machine Learning</em> (2nd ed.). Cambridge University Press.</td>
+      <td>More rigorous mathematical treatment of algorithms, for students going further.</td>
+    </tr>
+    <tr>
+      <td>Sharda, R., Delen, D., &amp; Turban, E. (2020). <em>Analytics, Data Science &amp; AI</em> (11th ed.). Pearson.</td>
+      <td>Business context, case studies and organisational applications.</td>
+    </tr>
+    <tr>
+      <td>O'Neil, C. (2016). <em>Weapons of Math Destruction</em>. Crown.</td>
+      <td>Accessible reading on algorithmic bias and the social impact of models — supports Module 18.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>10.2 Online documentation &amp; open resources</h3>
+<ul>
+  <li><strong>pandas documentation</strong> — <code>pandas.pydata.org/docs</code> (10-minute introduction, cookbook).</li>
+  <li><strong>scikit-learn user guide</strong> — <code>scikit-learn.org/stable/user_guide.html</code> (algorithm choice map, metrics, preprocessing).</li>
+  <li><strong>matplotlib gallery</strong> — <code>matplotlib.org/stable/gallery</code> (copy-ready chart templates).</li>
+  <li><strong>WEKA manual</strong> — <code>waikato.github.io/weka-wiki</code>.</li>
+  <li><strong>Kaggle Learn</strong> — short free courses on pandas, data visualisation and intro to machine learning.</li>
+  <li><strong>UCI Machine Learning Repository</strong> — <code>archive.ics.uci.edu</code> (public datasets for practice; check licences before use).</li>
+</ul>
+
+<!-- ================= 11 ================= -->
+<h2 id="s11">11. Academic Integrity, Ethics &amp; Data Policy</h2>
+
+<div class="box red">
+  <span class="ttl">Rules that apply to all submitted work</span>
+  <ul style="margin:0">
+    <li><strong>Never submit identifiable personal data.</strong> Names, student IDs, phone numbers, addresses, email addresses and health records must be removed or replaced with pseudonyms before a dataset is used in any assignment or project.</li>
+    <li><strong>Label synthetic data as fictional.</strong> If you generate data yourself, state this clearly in the report so that no reader mistakes it for real records.</li>
+    <li><strong>Cite your data source</strong> — URL, access date, licence, and any preprocessing performed by the provider.</li>
+    <li><strong>Credit all code you did not write.</strong> Copying code from a tutorial, a peer or an AI assistant without attribution is plagiarism. You must be able to explain every line you submit.</li>
+    <li><strong>Report results honestly.</strong> Do not delete inconvenient results, cherry-pick a favourable train/test split, or report only accuracy when the classes are imbalanced.</li>
+    <li><strong>Document cleaning decisions.</strong> Every value filled, row dropped or category standardised must be recorded with a reason.</li>
+  </ul>
+</div>
+
+<h3>Ethical principles expected in every project</h3>
+<ul>
+  <li><strong>Privacy &amp; data minimisation</strong> — collect and use only what the question requires.</li>
+  <li><strong>Consent &amp; purpose limitation</strong> — participants should know how their data will be used; do not reuse data for unrelated purposes.</li>
+  <li><strong>Fairness</strong> — check whether under-represented groups are missing from the dataset and whether error rates differ between groups.</li>
+  <li><strong>Human oversight</strong> — no high-stakes decision (grades, loans, hiring, medical triage) should rest on a model alone. Provide review and appeal.</li>
+  <li><strong>Transparency</strong> — prefer explainable models in high-stakes settings, and document limitations in the report.</li>
+</ul>
+
+<!-- ================= 12 ================= 
+<h2 id="s12">12. CLO ↔ Assessment Mapping</h2>
+<table>
+  <thead>
+    <tr>
+      <th>CLO</th><th>Labs</th><th>Mid-test</th><th>Mini-project</th><th>Final Exam</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>CLO1</td><td>—</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>CLO2</td><td>—</td><td>✓</td><td>—</td><td>✓</td></tr>
+    <tr><td>CLO3</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>CLO4</td><td>✓</td><td>—</td><td>✓</td><td>✓</td></tr>
+    <tr><td>CLO5</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    <tr><td>CLO6</td><td>✓</td><td>—</td><td>✓</td><td>✓</td></tr>
+    <tr><td>CLO7</td><td>✓</td><td>—</td><td>✓</td><td>✓</td></tr>
+    <tr><td>CLO8</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
+    <tr><td>CLO9</td><td>—</td><td>—</td><td>✓</td><td>—</td></tr>
+  </tbody>
+</table>
+
+
+<h2 id="s13">13. Grading Scale</h2>
+<table>
+  <thead><tr><th>Mark Range</th><th>Grade</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>85 – 100</td><td><strong>A</strong></td><td>Excellent — comprehensive, accurate, critically interpreted, well communicated.</td></tr>
+    <tr><td>75 – 84</td><td><strong>B+</strong></td><td>Very good — all outcomes met with minor gaps.</td></tr>
+    <tr><td>65 – 74</td><td><strong>B</strong></td><td>Good — outcomes met, some interpretation limited.</td></tr>
+    <tr><td>55 – 64</td><td><strong>C+</strong></td><td>Satisfactory — core outcomes achieved.</td></tr>
+    <tr><td>45 – 54</td><td><strong>C</strong></td><td>Adequate — basic outcomes achieved with errors.</td></tr>
+    <tr><td>40 – 44</td><td><strong>D</strong></td><td>Marginal pass — minimum standard met.</td></tr>
+    <tr><td>0 – 39</td><td><strong>F</strong></td><td>Fail — outcomes not met.</td></tr>
+  </tbody>
+</table>
+<p class="small">
+  Grades are indicative and subject to the official regulations of the awarding institution.
+</p>
+-->
+<!-- ================= NEXT ================= -->
+<div class="box purple" style="margin-top:44px">
+  <span class="ttl">Companion Document</span>
+  <p style="margin:0">
+    <strong>TECH 307 – Mini-Project Handbook</strong> contains the full project brief,
+    the seven-point required checklist, the marking rubric, a report template, and
+    <strong>twelve fully worked practical examples</strong> — each with its dataset (CSV),
+    data dictionary, step-by-step solution, Python code, expected output and ethics note.
+  </p>
+</div>
+
+<footer class="doc-foot">
+  TECH 307 – Data Mining Techniques &nbsp;•&nbsp; Course Description &amp; Syllabus &nbsp;•&nbsp;
+  Prepared for the TECH 307 teaching team
+</footer>
+
+</div>
+</body>
+</html>

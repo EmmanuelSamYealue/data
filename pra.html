@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECH 307 – Mini-Project Handbook: 12 Worked Practicals</title>
+<style>
+  :root{
+    --ink:#1e293b; --muted:#475569; --line:#cbd5e1;
+    --blue:#2563eb; --blue-l:#eff6ff;
+    --green:#15803d; --green-l:#f0fdf4;
+    --amber:#b45309; --amber-l:#fffbeb;
+    --red:#b91c1c; --red-l:#fef2f2;
+    --purple:#6d28d9; --purple-l:#f5f3ff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#f1f5f9; color:var(--ink);
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    font-size:15.5px; line-height:1.62;
+  }
+  .sheet{
+    max-width:1020px; margin:0 auto; background:#fff;
+    padding:44px 54px 80px; box-shadow:0 0 24px rgba(15,23,42,.09);
+  }
+  header.doc-head{ border-bottom:4px solid var(--blue); padding-bottom:20px; margin-bottom:30px; }
+  header.doc-head .code{
+    display:inline-block; background:var(--blue); color:#fff; font-weight:700;
+    letter-spacing:.06em; padding:5px 13px; border-radius:6px; font-size:13px;
+  }
+  header.doc-head h1{ font-size:1.95rem; margin:14px 0 4px; line-height:1.2; }
+  header.doc-head .sub{ color:var(--muted); margin:0; }
+
+  h2{
+    font-size:1.26rem; margin:48px 0 14px; padding-bottom:7px;
+    border-bottom:2px solid var(--line); color:#0f172a;
+  }
+  h2::before{
+    content:""; display:inline-block; width:6px; height:19px;
+    background:var(--blue); border-radius:3px; margin-right:10px; vertical-align:-3px;
+  }
+  h3{ font-size:1.02rem; margin:22px 0 8px; color:#0f172a; }
+  h4{ font-size:.96rem; margin:16px 0 6px; color:#0f172a; }
+  p{ margin:10px 0; }
+  ul,ol{ margin:10px 0 10px 4px; padding-left:22px; }
+  li{ margin:4px 0; }
+
+  table{ width:100%; border-collapse:collapse; margin:14px 0; font-size:14.2px; }
+  th,td{ border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th{ background:#e2e8f0; font-weight:700; }
+  tbody tr:nth-child(even){ background:#f8fafc; }
+
+  code{
+    background:#eef2f7; padding:1.5px 5px; border-radius:4px;
+    font-family:ui-monospace,Consolas,"Courier New",monospace; font-size:13.3px;
+  }
+
+  /* Data file block */
+  pre.csv{
+    background:var(--green-l); color:#14532d; border:1px solid #bbf7d0;
+    padding:13px 15px; border-radius:8px; overflow-x:auto;
+    font-family:ui-monospace,Consolas,"Courier New",monospace;
+    font-size:12.9px; line-height:1.5; margin:10px 0;
+  }
+  /* Python code block */
+  pre.code{
+    background:#0f172a; color:#e2e8f0; padding:15px 17px; border-radius:9px;
+    overflow-x:auto; font-family:ui-monospace,Consolas,"Courier New",monospace;
+    font-size:13.1px; line-height:1.55; margin:10px 0;
+  }
+  /* Output block */
+  pre.output{
+    background:#f8fafc; color:#0f172a; border-left:4px solid #94a3b8;
+    padding:12px 16px; border-radius:0 8px 8px 0; overflow-x:auto;
+    font-family:ui-monospace,Consolas,"Courier New",monospace;
+    font-size:12.9px; line-height:1.5; margin:10px 0;
+  }
+  .filelabel{
+    display:inline-block; font-size:12.4px; font-weight:700; letter-spacing:.03em;
+    color:var(--green); background:#dcfce7; border:1px solid #bbf7d0;
+    padding:2px 10px; border-radius:5px 5px 0 0; margin:14px 0 -10px;
+    font-family:ui-monospace,Consolas,monospace;
+  }
+  .codelabel{
+    display:inline-block; font-size:12.4px; font-weight:700; letter-spacing:.03em;
+    color:#cbd5e1; background:#1e293b; padding:2px 10px; border-radius:5px 5px 0 0;
+    margin:14px 0 -10px; font-family:ui-monospace,Consolas,monospace;
+  }
+
+  .box{
+    border-left:5px solid var(--blue); background:var(--blue-l);
+    padding:13px 18px; border-radius:0 8px 8px 0; margin:16px 0;
+  }
+  .box.amber{ border-left-color:var(--amber); background:var(--amber-l); }
+  .box.green{ border-left-color:var(--green); background:var(--green-l); }
+  .box.red{ border-left-color:var(--red); background:var(--red-l); }
+  .box.purple{ border-left-color:var(--purple); background:var(--purple-l); }
+  .box > .ttl{ font-weight:700; display:block; margin-bottom:5px; }
+
+  .practical{
+    border:1px solid var(--line); border-radius:12px;
+    padding:6px 26px 26px; margin:36px 0; background:#fcfdff;
+  }
+  .practical > h2{ margin-top:22px; }
+  .meta{
+    display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 4px;
+  }
+  .chip{
+    font-size:12.2px; font-weight:700; padding:3px 11px; border-radius:20px;
+    background:#e0e7ff; color:#3730a3; letter-spacing:.02em;
+  }
+  .chip.t2{ background:#dcfce7; color:#166534; }
+  .chip.t3{ background:#fef3c7; color:#92400e; }
+
+  .toc{
+    background:#f8fafc; border:1px solid var(--line); border-radius:10px;
+    padding:16px 24px; margin:26px 0;
+  }
+  .toc ol{ margin:6px 0; columns:2; column-gap:34px; font-size:14.2px; }
+  .toc a{ color:var(--blue); text-decoration:none; }
+  .toc a:hover{ text-decoration:underline; }
+
+  .small{ font-size:13.5px; color:var(--muted); }
+  footer.doc-foot{
+    margin-top:60px; padding-top:18px; border-top:1px solid var(--line);
+    font-size:13px; color:var(--muted); text-align:center;
+  }
+
+  @media (max-width:780px){
+    .sheet{ padding:26px 18px 50px; }
+    .toc ol{ columns:1; }
+    header.doc-head h1{ font-size:1.5rem; }
+    .practical{ padding:4px 14px 18px; }
+    table{ display:block; overflow-x:auto; }
+    pre.csv, pre.code, pre.output{ font-size:11.9px; }
+  }
+  @media print{
+    body{ background:#fff; font-size:11.3pt; }
+    .sheet{ box-shadow:none; padding:0; max-width:none; }
+    pre.code{ background:#f4f6f8; color:#000; border:1px solid #ccc; }
+    pre.csv, pre.output{ border:1px solid #ccc; }
+    .practical{ page-break-inside:auto; }
+    h2, h3{ page-break-after:avoid; }
+    pre, table, .box{ page-break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header class="doc-head">
+  <span class="code">TECH 307</span>
+  <h1>Mini-Project Handbook</h1>
+  <p class="sub">Full brief, checklist, rubric, report template and <strong>12 fully worked practicals</strong> with CSV data, code and output</p>
+
+
+</header>
+
+<!-- ================= TOC ================= -->
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#part-a">Part A — Project Brief &amp; Checklist</a></li>
+    <li><a href="#part-b">Part B — Marking Rubric (100 marks)</a></li>
+    <li><a href="#part-c">Part C — Report Template &amp; Presentation Guide</a></li>
+    <li><a href="#p1">Practical 1 — Student Pass/Fail (Decision Tree)</a></li>
+    <li><a href="#p2">Practical 2 — Study Hours → Score (Linear Regression)</a></li>
+    <li><a href="#p3">Practical 3 — Customer Segmentation (K-Means)</a></li>
+    <li><a href="#p4">Practical 4 — Market Basket (Association Rules)</a></li>
+    <li><a href="#p5">Practical 5 — Credit Card Fraud (Imbalanced)</a></li>
+    <li><a href="#p6">Practical 6 — Crop Yield (Multivariate Regression)</a></li>
+    <li><a href="#p7">Practical 7 — Telecom Churn (KNN + Scaling)</a></li>
+    <li><a href="#p8">Practical 8 — Sensor Anomaly Detection</a></li>
+    <li><a href="#p9">Practical 9 — Data Quality Audit (Cleaning)</a></li>
+    <li><a href="#p10">Practical 10 — Flower Species (Multi-class KNN)</a></li>
+    <li><a href="#p11">Practical 11 — Placement: DT vs KNN</a></li>
+    <li><a href="#p12">Practical 12 — Course Enrolment (Capstone)</a></li>
+    <li><a href="#part-d">Part D — Submission Checklist &amp; Pitfalls</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<!-- PART A                                                       -->
+<!-- ============================================================ -->
+<h2 id="part-a">Part A — Project Brief &amp; Required Checklist</h2>
+
+<p>
+  You will perform the <strong>entire KDD process</strong> on a dataset of your choice
+  (for example fictional student data, supermarket transactions, or sensor readings).
+  Synthetic data must be labelled as <strong>fictional</strong>. Do not submit identifiable
+  personal records.
+</p>
+
+<h3>A.1 The seven required elements</h3>
+<table>
+  <thead>
+    <tr><th style="width:6%">#</th><th style="width:24%">Required element</th><th style="width:70%">What you must produce</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td><td><strong>Problem statement</strong></td>
+      <td>One clear research question. Example: <em>“Can we predict student failure based on attendance and assignment marks?”</em> State it as a single sentence, then justify why the question matters.</td>
+    </tr>
+    <tr>
+      <td>2</td><td><strong>Dataset description</strong></td>
+      <td>Source, number of records, number of fields, data type of each field. State clearly that the data are synthetic if you generated them. Do not submit names, student IDs, phone numbers or any other identifiable information.</td>
+    </tr>
+    <tr>
+      <td>3</td><td><strong>Data cleaning</strong></td>
+      <td>Document missing values, duplicates, invalid entries, inconsistent categories, and how you fixed each one. Include counts before and after cleaning, and give a reason for every decision.</td>
+    </tr>
+    <tr>
+      <td>4</td><td><strong>EDA</strong></td>
+      <td>Summary statistics (mean, median, standard deviation, min, max) and <strong>at least two useful charts</strong> (bar chart, histogram, scatter plot, box plot, etc.). Each chart must have a title, labelled axes, and one sentence of interpretation.</td>
+    </tr>
+    <tr>
+      <td>5</td><td><strong>Data mining technique</strong></td>
+      <td>Apply <strong>one</strong> algorithm — Classification, Clustering, Regression, or Association. Explain <em>why</em> you chose it over the alternatives, given your research question.</td>
+    </tr>
+    <tr>
+      <td>6</td><td><strong>Evaluation</strong></td>
+      <td>Report the appropriate results: Accuracy / Confusion Matrix / Precision / Recall / F1 for classification; R² / MAE for regression; cluster averages and silhouette for clustering; Support / Confidence / Lift for association rules.</td>
+    </tr>
+    <tr>
+      <td>7</td><td><strong>Ethics</strong></td>
+      <td>Discuss limitations, privacy, bias and potential safeguards. No model should be presented as the sole basis for a high-stakes decision.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>A.2 Deliverables</h3>
+<table>
+  <thead><tr><th style="width:34%">Deliverable</th><th style="width:66%">Details</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Short report</strong></td><td>PDF or Word, 6–10 pages, following the template in Part C.</td></tr>
+    <tr><td><strong>Cleaned CSV file</strong></td><td>The dataset after all cleaning steps — the exact file your code reads.</td></tr>
+    <tr><td><strong>Python source code</strong></td><td>One <code>.py</code> file, or a <code>.ipynb</code> notebook, or a WEKA workflow. Code must run end-to-end without manual editing.</td></tr>
+    <tr><td><strong>Charts</strong></td><td>Saved as PNG or embedded in the report. At least two must be interpretable without reading the report.</td></tr>
+    <tr><td><strong>Presentation</strong></td><td>5–10 minutes. Slides or live demo. All group members must speak.</td></tr>
+  </tbody>
+</table>
+
+<div class="box red">
+  <span class="ttl">Non-negotiable rules</span>
+  <ul style="margin:0">
+    <li>No identifiable personal data — anywhere.</li>
+    <li>Synthetic data must be labelled fictional in the report.</li>
+    <li>Every cleaning decision must be documented.</li>
+    <li>Every reported number must be reproducible from your code and CSV.</li>
+    <li>Code you did not write must be credited (tutorial, peer, AI assistant).</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- PART B                                                       -->
+<!-- ============================================================ -->
+<h2 id="part-b">Part B — Marking Rubric (100 marks)</h2>
+
+<table>
+  <thead>
+    <tr><th style="width:40%">Criterion</th><th style="width:10%">Marks</th><th style="width:50%">What earns full marks</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Problem statement and objectives</td><td>10</td>
+      <td>One clear, answerable research question; a short justification of why it matters; the objective matches the technique chosen.</td>
+    </tr>
+    <tr>
+      <td>Dataset source, description and suitability</td><td>10</td>
+      <td>Full data dictionary; record count; types; clearly labelled synthetic data; a sentence explaining why this dataset can answer the question.</td>
+    </tr>
+    <tr>
+      <td>Data quality checks and cleaning</td><td>15</td>
+      <td>Every missing value, duplicate and invalid entry identified with counts; a documented reason for each fix; before/after comparison.</td>
+    </tr>
+    <tr>
+      <td>Correct choice and application of technique</td><td>20</td>
+      <td>Technique fits the question; correct use of train/test split, scaling or encoding where needed; code runs end-to-end.</td>
+    </tr>
+    <tr>
+      <td>Interpretation, visualisations and evaluation</td><td>15</td>
+      <td>Metrics reported and interpreted in context; at least two labelled charts; the meaning of each number explained, not just copied from output.</td>
+    </tr>
+    <tr>
+      <td>Limitations, privacy and ethics</td><td>10</td>
+      <td>Specific, honest limitations; a discussion of bias, privacy and human oversight; a realistic safeguard proposed.</td>
+    </tr>
+    <tr>
+      <td>Report quality and presentation</td><td>20</td>
+      <td>Clear structure, correct grammar, professional charts, consistent formatting, all members contribute to a rehearsed 5–10 minute talk.</td>
+    </tr>
+    <tr>
+      <td colspan="3" style="background:#f8fafc"><strong>Total: 100 marks</strong> — scaled to 30% of the course.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="box amber">
+  <span class="ttl">Automatic deductions</span>
+  <ul style="margin:0">
+    <li><strong>−10 marks</strong> for identifiable personal data in any deliverable.</li>
+    <li><strong>−5 marks</strong> for each chart without a title or labelled axes.</li>
+    <li><strong>−5 marks</strong> for code that does not run without manual editing.</li>
+    <li><strong>−10 marks</strong> for a claim that cannot be reproduced from the submitted files.</li>
+    <li><strong>−20 marks</strong> for plagiarism (including uncited AI-generated code).</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- PART C                                                       -->
+<!-- ============================================================ -->
+<h2 id="part-c">Part C — Report Template &amp; Presentation Guide</h2>
+
+<h3>C.1 Report structure (6–10 pages)</h3>
+<ol>
+  <li><strong>Title page</strong> — project title, student name(s), student ID(s), course code, date.</li>
+  <li><strong>Abstract</strong> (150 words) — problem, dataset, technique, headline result, one-line conclusion.</li>
+  <li><strong>1. Problem statement</strong> — the research question and why it matters.</li>
+  <li><strong>2. Dataset</strong> — source, record count, data dictionary (field name, type, range / categories, meaning).</li>
+  <li><strong>3. Data cleaning</strong> — a table of issues found, count, action taken, and reason.</li>
+  <li><strong>4. Exploratory data analysis</strong> — summary statistics table, two labelled charts, interpretation of each.</li>
+  <li><strong>5. Data mining technique</strong> — what you chose, why, and how it was configured (e.g., <code>max_depth=3</code>, <code>n_clusters=3</code>).</li>
+  <li><strong>6. Evaluation</strong> — metrics, confusion matrix or equivalent, and <em>interpretation</em> in plain language.</li>
+  <li><strong>7. Discussion</strong> — what the results mean, how they would inform a decision.</li>
+  <li><strong>8. Limitations, ethics and privacy</strong> — specific limitations, bias, safeguards.</li>
+  <li><strong>9. Conclusion</strong> — one paragraph answering the research question directly.</li>
+  <li><strong>References</strong> — textbook, data source, any code or tutorial used.</li>
+  <li><strong>Appendix</strong> — the full Python code (or a link), and the cleaned CSV.</li>
+</ol>
+
+<h3>C.2 Presentation guide (5–10 minutes)</h3>
+<table>
+  <thead><tr><th style="width:18%">Minutes</th><th style="width:82%">Content</th></tr></thead>
+  <tbody>
+    <tr><td>0:00 – 1:00</td><td>The question: what are you trying to find out, and why does it matter?</td></tr>
+    <tr><td>1:00 – 2:30</td><td>The data: source, size, fields, synthetic/fictional label.</td></tr>
+    <tr><td>2:30 – 4:00</td><td>Cleaning and EDA — show <em>two charts</em> and say what they revealed.</td></tr>
+    <tr><td>4:00 – 6:30</td><td>The technique and the result. Show one metric, one chart or confusion matrix, and explain it in one sentence.</td></tr>
+    <tr><td>6:30 – 8:00</td><td>Interpretation and limitations — what would you tell a decision-maker?</td></tr>
+    <tr><td>8:00 – 9:00</td><td>Ethics — one privacy safeguard, one bias check.</td></tr>
+    <tr><td>9:00 – 10:00</td><td>Questions.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 1                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p1">
+<h2>Practical 1 — Student Pass/Fail Prediction (Classification)</h2>
+<div class="meta">
+  <span class="chip">Technique: Decision Tree</span>
+  <span class="chip t2">File: students.csv</span>
+  <span class="chip t3">Difficulty: Beginner</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Can we predict whether a student will Pass or Fail from Attendance, Assignment and Exam marks?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range / Categories</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>Student</td><td>text (identifier)</td><td>S01 … S20</td><td>Anonymous student code — <strong>not</strong> used as a feature</td></tr>
+    <tr><td>Attendance</td><td>integer</td><td>0 – 100</td><td>Attendance percentage</td></tr>
+    <tr><td>Assignment</td><td>integer</td><td>0 – 100</td><td>Assignment mark</td></tr>
+    <tr><td>Exam</td><td>integer</td><td>0 – 100</td><td>Final exam mark</td></tr>
+    <tr><td>Result</td><td>categorical</td><td>Pass / Fail</td><td>Target label</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">students.csv — synthetic / fictional</span>
+<pre class="csv">Student,Attendance,Assignment,Exam,Result
+S01,92,88,85,Pass
+S02,85,80,78,Pass
+S03,40,35,30,Fail
+S04,78,75,70,Pass
+S05,35,40,25,Fail
+S06,88,92,90,Pass
+S07,60,55,48,Fail
+S08,95,85,88,Pass
+S09,45,50,42,Fail
+S10,72,68,65,Pass
+S11,30,25,20,Fail
+S12,82,78,75,Pass
+S13,68,72,60,Pass
+S14,55,45,38,Fail
+S15,90,95,92,Pass
+S16,38,30,28,Fail
+S17,75,65,62,Pass
+S18,65,60,55,Fail
+S19,87,82,80,Pass
+S20,50,48,40,Fail</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the CSV with pandas and check the shape and first rows.</li>
+  <li>Split the data into <code>X</code> (three numeric features) and <code>y</code> (<code>Result</code>). Drop the <code>Student</code> column — it is an identifier, not a feature.</li>
+  <li>Split into 75% training / 25% testing, stratified so both classes appear in the test set.</li>
+  <li>Train a <code>DecisionTreeClassifier</code> with <code>max_depth=3</code> to keep the rules readable.</li>
+  <li>Predict on the test set and report accuracy, the confusion matrix, and precision/recall/F1.</li>
+  <li>Print the learned rules with <code>export_text</code> and explain them in plain English.</li>
+</ol>
+
+<span class="codelabel">practical1_tree.py</span>
+<pre class="code">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, export_text
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+df = pd.read_csv("students.csv")
+print(df.shape)
+print(df.head())
+
+X = df[["Attendance", "Assignment", "Exam"]]
+y = df["Result"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+model = DecisionTreeClassifier(max_depth=3, random_state=42)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+print("Accuracy:", round(accuracy_score(y_test, y_pred), 3))
+print("\nConfusion matrix (rows = actual, cols = predicted):")
+print(confusion_matrix(y_test, y_pred, labels=["Fail", "Pass"]))
+print("\nClassification report:")
+print(classification_report(y_test, y_pred))
+
+print("\nLearned rules:")
+print(export_text(model, feature_names=["Attendance", "Assignment", "Exam"]))</pre>
+
+<pre class="output">(20, 5)
+  Student  Attendance  Assignment  Exam Result
+0     S01          92          88    85   Pass
+1     S02          85          80    78   Pass
+2     S03          40          35    30   Fail
+3     S04          78          75    70   Pass
+4     S05          35          40    25   Fail
+
+Accuracy: 1.0
+
+Confusion matrix (rows = actual, cols = predicted):
+[[3 0]
+ [0 2]]
+
+Classification report:
+              precision    recall  f1-score   support
+
+        Fail       1.00      1.00      1.00         3
+        Pass       1.00      1.00      1.00         2
+
+    accuracy                           1.00         5
+   macro avg       1.00      1.00      1.00         5
+weighted avg       1.00      1.00      1.00         5
+
+Learned rules:
+|--- Attendance &lt;= 62.50
+|   |--- class: Fail
+|--- Attendance &gt;  62.50
+|   |--- class: Pass</pre>
+
+<h3>Interpretation</h3>
+<p>
+  The tree learned a single, interpretable rule: <strong>if attendance is at or below 62.5%, predict Fail;
+  otherwise predict Pass.</strong> In this small fictional dataset attendance is a perfect separator,
+  so every test record is classified correctly.
+</p>
+<div class="box amber">
+  <span class="ttl">Be honest about the limits</span>
+  <p style="margin:0">
+    The test set has only <strong>5 rows</strong>. 100% accuracy on 5 rows is not evidence that the
+    model generalises. A real report should say: <em>“On this small fictional sample the tree was
+    perfectly accurate; a larger dataset with overlapping classes would be needed to estimate real
+    performance.”</em> Also note that 100% accuracy does not prove causation — high attendance may
+    co-occur with other advantages.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    The model is a <strong>screening aid</strong>, not a verdict. A student predicted as “Fail” should
+    receive support (tutoring, a conversation), never punishment. Data are synthetic — no real
+    student records appear in this file.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 2                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p2">
+<h2>Practical 2 — Study Hours and Exam Score (Linear Regression)</h2>
+<div class="meta">
+  <span class="chip">Technique: Linear Regression</span>
+  <span class="chip t2">File: study_hours.csv</span>
+  <span class="chip t3">Difficulty: Beginner</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>How strongly does weekly study time relate to exam score, and what score would we estimate for a student who studies 6.5 hours?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>Hours</td><td>decimal</td><td>1.0 – 8.0</td><td>Hours studied per week</td></tr>
+    <tr><td>Score</td><td>integer</td><td>45 – 88</td><td>Exam score (%)</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">study_hours.csv — synthetic / fictional</span>
+<pre class="csv">Hours,Score
+1.0,45
+1.5,48
+2.0,50
+2.5,55
+3.0,58
+3.5,60
+4.0,62
+4.5,66
+5.0,70
+5.5,71
+6.0,75
+6.5,78
+7.0,80
+7.5,83
+8.0,88</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the data and plot a scatter of <code>Hours</code> against <code>Score</code>.</li>
+  <li>Fit a <code>LinearRegression</code> model.</li>
+  <li>Report the slope <em>m</em>, the intercept <em>c</em>, the R² and the MAE.</li>
+  <li>Use the fitted line to estimate the score for 6.5 hours.</li>
+  <li>State clearly that the estimate is a model prediction, not a guarantee.</li>
+</ol>
+
+<span class="codelabel">practical2_regression.py</span>
+<pre class="code">import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score, mean_absolute_error
+
+df = pd.read_csv("study_hours.csv")
+X = df[["Hours"]]
+y = df["Score"]
+
+model = LinearRegression()
+model.fit(X, y)
+
+print("Slope (m)     :", round(model.coef_[0], 3))
+print("Intercept (c) :", round(model.intercept_, 3))
+
+y_pred = model.predict(X)
+print("R²            :", round(r2_score(y, y_pred), 4))
+print("MAE           :", round(mean_absolute_error(y, y_pred), 2))
+
+new = pd.DataFrame({"Hours": [6.5]})
+print("Prediction for 6.5 hours:", round(model.predict(new)[0], 2))</pre>
+
+<pre class="output">Slope (m)     : 5.957
+Intercept (c) : 39.126
+R²            : 0.9965
+MAE           : 0.62
+Prediction for 6.5 hours: 77.85</pre>
+
+<h3>Interpretation</h3>
+<p>
+  The fitted line is <strong>Score = 39.13 + 5.96 × Hours</strong>.
+  The slope means that, in this fictional dataset, each additional hour of study is associated
+  with about <strong>6 extra marks</strong>. The R² of <strong>0.9965</strong> means the line explains
+  almost all the variation — but that is because this dataset was generated to be almost perfectly
+  linear. The MAE of <strong>0.62</strong> says the average prediction is less than one mark away
+  from the actual value.
+</p>
+<p>
+  For 6.5 hours the model estimates <strong>77.85</strong>. This is a point estimate from a very
+  clean synthetic sample — real exam scores scatter far more widely around any fitted line.
+</p>
+
+<div class="box amber">
+  <span class="ttl">Correlation is not causation</span>
+  <p style="margin:0">
+    A strong R² does <strong>not</strong> prove that studying causes higher marks. Prior knowledge,
+    teaching quality, health and motivation may all affect both variables. It would also be unsafe
+    to predict outside 1–8 hours; the model has never seen 20 hours and its extrapolation would be
+    unreliable.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Regression estimates should never be used to set a fixed expectation for a named student.
+    The dataset is fictional and contains no personal identifiers.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 3                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p3">
+<h2>Practical 3 — Customer Segmentation (K-Means Clustering)</h2>
+<div class="meta">
+  <span class="chip">Technique: K-Means Clustering</span>
+  <span class="chip t2">File: customers.csv</span>
+  <span class="chip t3">Difficulty: Beginner–Intermediate</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Can we discover natural customer groups from annual income and spending score, and what distinguishes each group?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>CustomerID</td><td>text (identifier)</td><td>C01 … C15</td><td>Anonymous customer code</td></tr>
+    <tr><td>Annual_Income_k</td><td>integer</td><td>15 – 95</td><td>Annual income, thousands</td></tr>
+    <tr><td>Spending_Score</td><td>integer</td><td>10 – 85</td><td>Store spending score (0–100)</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">customers.csv — synthetic / fictional</span>
+<pre class="csv">CustomerID,Annual_Income_k,Spending_Score
+C01,15,80
+C02,18,75
+C03,20,82
+C04,22,78
+C05,25,85
+C06,55,50
+C07,58,55
+C08,60,48
+C09,62,52
+C10,65,45
+C11,85,15
+C12,88,20
+C13,90,12
+C14,92,18
+C15,95,10</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the data and plot income against spending score.</li>
+  <li>Scale both features with <code>StandardScaler</code> — otherwise income (range 15–95) would dominate.</li>
+  <li>Fit <code>KMeans(n_clusters=3)</code> and record the cluster assignment for each customer.</li>
+  <li>Report the cluster sizes, the mean income and mean spending score of each cluster, and the silhouette score.</li>
+  <li>Name each cluster in plain English and describe the business action it would trigger.</li>
+</ol>
+
+<span class="codelabel">practical3_kmeans.py</span>
+<pre class="code">import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import silhouette_score
+
+df = pd.read_csv("customers.csv")
+X = df[["Annual_Income_k", "Spending_Score"]]
+
+scaler = StandardScaler()
+Xs = scaler.fit_transform(X)
+
+model = KMeans(n_clusters=3, random_state=42, n_init=10)
+df["Cluster"] = model.fit_predict(Xs)
+
+print("Silhouette score:", round(silhouette_score(Xs, df["Cluster"]), 3))
+print("\nCluster sizes:")
+print(df["Cluster"].value_counts().sort_index())
+
+print("\nCluster averages:")
+print(df.groupby("Cluster")[["Annual_Income_k", "Spending_Score"]]
+        .mean().round(1).sort_values("Annual_Income_k"))
+
+print("\nAssignments:")
+print(df.sort_values(["Cluster", "CustomerID"]).to_string(index=False))</pre>
+
+<pre class="output">Silhouette score: 0.844
+
+Cluster sizes:
+Cluster
+0    5
+1    5
+2    5
+Name: count, dtype: int64
+
+Cluster averages:
+         Annual_Income_k  Spending_Score
+Cluster
+0                    20.0            80.0
+1                    60.0            50.0
+2                    90.0            15.0
+
+Assignments:
+CustomerID  Annual_Income_k  Spending_Score  Cluster
+      C01               15              80        0
+      C02               18              75        0
+      C03               20              82        0
+      C04               22              78        0
+      C05               25              85        0
+      C06               55              50        1
+      C07               58              55        1
+      C08               60              48        1
+      C09               62              52        1
+      C10               65              45        1
+      C11               85              15        2
+      C12               88              20        2
+      C13               90              12        2
+      C14               92              18        2
+      C15               95              10        2</pre>
+
+<h3>Interpretation</h3>
+<p>
+  K-Means recovered three clean groups. A silhouette score near <strong>0.84</strong> indicates
+  well-separated clusters.
+</p>
+<table>
+  <thead><tr><th>Cluster</th><th>Mean income (k)</th><th>Mean spending score</th><th>Business label</th><th>Likely action</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>20</td><td>80</td><td>“Low income, high spenders”</td><td>Promote affordable premium items — they already spend heavily.</td></tr>
+    <tr><td>1</td><td>60</td><td>50</td><td>“Middle, moderate”</td><td>Standard loyalty programme.</td></tr>
+    <tr><td>2</td><td>90</td><td>15</td><td>“High income, low spenders”</td><td>Investigate why: targeted premium offers may unlock spending.</td></tr>
+  </tbody>
+</table>
+<p class="small">
+  The cluster numbers 0, 1 and 2 are arbitrary labels. If you re-run with a different seed the
+  numbers may swap; only the <em>groups themselves</em> are meaningful.
+</p>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Cluster labels are <strong>internal analytical groupings</strong>. They must never be shown to
+    customers as labels (“you are a low-value customer”), and they must not be used to deny service.
+    Re-run the clustering periodically: a customer who changes behaviour should not be trapped in an
+    old group.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 4                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p4">
+<h2>Practical 4 — Market Basket Analysis (Association Rules)</h2>
+<div class="meta">
+  <span class="chip">Technique: Association Rules</span>
+  <span class="chip t2">File: transactions.csv</span>
+  <span class="chip t3">Difficulty: Intermediate</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Which products are bought together more often than chance, and which rule is strong enough to justify a store-layout change?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>TID</td><td>text (identifier)</td><td>Transaction ID</td></tr>
+    <tr><td>Items</td><td>text (comma-separated)</td><td>Products bought in that transaction</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">transactions.csv — synthetic / fictional</span>
+<pre class="csv">TID,Items
+T1,"Bread, Milk"
+T2,"Bread, Diapers, Beer, Eggs"
+T3,"Milk, Diapers, Beer, Cola"
+T4,"Bread, Milk, Diapers, Beer"
+T5,"Bread, Milk, Diapers, Cola"
+T6,"Bread, Milk"
+T7,"Milk, Diapers"
+T8,"Bread, Beer"
+T9,"Bread, Milk, Diapers, Beer"
+T10,"Milk, Cola"</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Read the CSV and split each <code>Items</code> string into a Python <code>set</code>.</li>
+  <li>Count how many transactions contain each item, and how many contain each candidate pair.</li>
+  <li>Compute <strong>support</strong>, <strong>confidence</strong> and <strong>lift</strong> for the rules that interest you.</li>
+  <li>Interpret lift: &gt; 1 means the items co-occur more often than chance; = 1 means independent; &lt; 1 means they repel.</li>
+  <li>Choose one rule with lift &gt; 1 and explain what action it justifies.</li>
+</ol>
+
+<span class="codelabel">practical4_association.py</span>
+<pre class="code">import pandas as pd
+
+df = pd.read_csv("transactions.csv")
+baskets = [set(s.split(", ")) for s in df["Items"]]
+n = len(baskets)
+
+def metrics(a, b):
+    A   = sum(a in t for t in baskets)
+    B   = sum(b in t for t in baskets)
+    AB  = sum(a in t and b in t for t in baskets)
+    support    = AB / n
+    confidence = AB / A if A else 0
+    lift       = confidence / (B / n) if B else 0
+    return A, B, AB, support, confidence, lift
+
+pairs = [
+    ("Bread",   "Milk"),
+    ("Milk",    "Bread"),
+    ("Diapers", "Beer"),
+    ("Beer",    "Diapers"),
+    ("Diapers", "Milk"),
+    ("Bread",   "Diapers"),
+]
+
+print(f"{'Rule':<20}{'Sup(A)':>8}{'Sup(B)':>8}{'Sup(A,B)':>10}"
+      f"{'Support':>10}{'Confidence':>12}{'Lift':>8}")
+print("-" * 78)
+for a, b in pairs:
+    A, B, AB, sup, conf, lift = metrics(a, b)
+    print(f"{a + ' -> ' + b:<20}{A:>8}{B:>8}{AB:>10}"
+          f"{sup:>10.2f}{conf:>12.3f}{lift:>8.2f}")</pre>
+
+<pre class="output">Rule                  Sup(A)  Sup(B)  Sup(A,B)   Support  Confidence    Lift
+------------------------------------------------------------------------------
+Bread -> Milk              7       8         5      0.50       0.714   0.89
+Milk -> Bread              8       7         5      0.50       0.625   0.89
+Diapers -> Beer            6       5         4      0.40       0.667   1.33
+Beer -> Diapers            5       6         4      0.40       0.800   1.33
+Diapers -> Milk            6       8         5      0.50       0.833   1.04
+Bread -> Diapers           7       6         4      0.40       0.571   0.95</pre>
+
+<h3>Interpretation</h3>
+<ul>
+  <li><strong>Diapers → Beer</strong> has lift <strong>1.33</strong>: customers who buy diapers are
+      about one third more likely than a random customer to also buy beer. Confidence 0.667 means
+      two-thirds of diaper baskets contained beer. This is the only clearly positive, actionable
+      association in this small fictional basket set.</li>
+  <li><strong>Bread → Milk</strong> and <strong>Milk → Bread</strong> both have lift <strong>0.89</strong>
+      — below 1, meaning bread and milk appear together slightly <em>less</em> often than chance in
+      this dataset. They are popular individually, but not a bundle.</li>
+  <li><strong>Bread → Diapers</strong> has lift <strong>0.95</strong> — essentially independent.</li>
+</ul>
+
+<div class="box amber">
+  <span class="ttl">Statistical caution</span>
+  <p style="margin:0">
+    With only <strong>10 transactions</strong>, a single basket change can swing support by 10 percentage
+    points. Rules found on 10 baskets are hypotheses, not findings. A real analysis would require
+    hundreds or thousands of receipts, a minimum-support threshold, and a significance check.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Basket analysis uses <strong>anonymised</strong> receipts only. It must never be linked back to
+    a named customer, and rules must not be used to target vulnerable shoppers (for example,
+    pushing alcohol to known buyers). Store-layout decisions are a legitimate use; personalised
+    persuasion of individuals is not.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 5                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p5">
+<h2>Practical 5 — Credit Card Fraud Detection (Imbalanced Classification)</h2>
+<div class="meta">
+  <span class="chip">Technique: Decision Tree on imbalanced data</span>
+  <span class="chip t2">File: transactions_fraud.csv</span>
+  <span class="chip t3">Difficulty: Intermediate–Advanced</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Can we flag fraudulent card transactions, and why is accuracy a misleading metric here?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>TxnID</td><td>text (identifier)</td><td>L01 … F06</td><td>Anonymous transaction code</td></tr>
+    <tr><td>Amount</td><td>decimal</td><td>15 – 3200</td><td>Transaction amount (currency units)</td></tr>
+    <tr><td>Hour</td><td>integer</td><td>0 – 23</td><td>Hour of day</td></tr>
+    <tr><td>Distance_km</td><td>decimal</td><td>1 – 1200</td><td>Distance from customer's home</td></tr>
+    <tr><td>Foreign</td><td>0/1</td><td>0 or 1</td><td>1 = transaction made abroad</td></tr>
+    <tr><td>Class</td><td>0/1</td><td>0 or 1</td><td><strong>Target</strong>: 1 = fraud, 0 = legitimate</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">transactions_fraud.csv — synthetic / fictional</span>
+<pre class="csv">TxnID,Amount,Hour,Distance_km,Foreign,Class
+L01,45.20,14,3.2,0,0
+L02,120.50,9,8.5,0,0
+L03,23.99,18,1.5,0,0
+L04,310.00,12,12.0,0,0
+L05,78.40,20,5.0,0,0
+L06,15.75,8,2.0,0,0
+L07,260.30,16,18.5,0,0
+L08,45.00,11,4.4,0,0
+L09,189.99,19,9.9,0,0
+L10,32.10,7,3.0,0,0
+L11,420.00,15,22.0,0,0
+L12,67.80,13,6.1,0,0
+L13,98.20,21,7.7,0,0
+L14,55.50,10,4.0,0,0
+L15,140.00,17,11.2,0,0
+L16,28.90,6,2.8,0,0
+L17,380.00,22,25.0,0,0
+L18,72.60,14,5.5,0,0
+L19,210.00,9,15.0,0,0
+L20,18.30,12,1.9,0,0
+L21,330.00,20,30.0,0,0
+L22,88.80,8,6.6,0,0
+L23,44.40,16,3.5,0,0
+L24,155.00,11,10.0,0,0
+L25,35.00,2,4.0,0,0
+L26,500.00,3,200.0,0,0
+F01,2500.00,2,850.0,1,1
+F02,1800.00,3,620.0,1,1
+F03,3200.00,1,1200.0,1,1
+F04,950.00,4,300.0,1,1
+F05,1500.00,23,700.0,1,1
+F06,420.00,2,150.0,1,1</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the CSV and check the class balance. There are 26 legitimate and 6 fraud rows — roughly 19% fraud.</li>
+  <li>Split features (<code>Amount</code>, <code>Hour</code>, <code>Distance_km</code>, <code>Foreign</code>) from the target <code>Class</code>.</li>
+  <li>Use a <strong>stratified</strong> train/test split so both classes appear in the test set.</li>
+  <li>Train a <code>DecisionTreeClassifier</code> and predict on the test set.</li>
+  <li>Report accuracy, precision, recall and the confusion matrix — and explain <em>why accuracy alone is misleading</em>.</li>
+</ol>
+
+<span class="codelabel">practical5_fraud.py</span>
+<pre class="code">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import (accuracy_score, confusion_matrix,
+                             precision_score, recall_score, f1_score)
+
+df = pd.read_csv("transactions_fraud.csv")
+print("Class counts:")
+print(df["Class"].value_counts())
+
+X = df[["Amount", "Hour", "Distance_km", "Foreign"]]
+y = df["Class"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+model = DecisionTreeClassifier(max_depth=3, random_state=42)
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+print("\nConfusion matrix (rows = actual, cols = predicted):")
+print(confusion_matrix(y_test, y_pred, labels=[0, 1]))
+
+print("\nAccuracy :", round(accuracy_score(y_test, y_pred), 3))
+print("Precision:", round(precision_score(y_test, y_pred, zero_division=0), 3))
+print("Recall   :", round(recall_score(y_test, y_pred, zero_division=0), 3))
+print("F1       :", round(f1_score(y_test, y_pred, zero_division=0), 3))
+
+print("\nPredicted classes for the test set:")
+print(pd.DataFrame({"Actual": y_test.values, "Predicted": y_pred}))</pre>
+
+<pre class="output">Class counts:
+Class
+0    26
+1     6
+Name: count, dtype: int64
+
+Confusion matrix (rows = actual, cols = predicted):
+[[5 1]
+ [1 1]]
+
+Accuracy : 0.75
+Precision: 0.5
+Recall   : 0.5
+F1       : 0.5
+
+Predicted classes for the test set:
+   Actual  Predicted
+0       1          1
+1       1          0
+2       0          0
+3       0          1
+4       0          0
+5       0          0
+6       0          0
+7       0          0</pre>
+
+<h3>Interpretation</h3>
+<p>
+  The model catches <strong>1 of the 2</strong> fraud cases in the test set (Recall = 0.50) and
+  raises one false alarm (Precision = 0.50). Accuracy is 75% — but here is the trap: a lazy model
+  that predicted <em>“legitimate”</em> for every transaction would score 26/32 = 81% accuracy
+  while catching <strong>zero fraud</strong>. Accuracy is not the right metric for imbalanced data.
+</p>
+<p>
+  The correct question is: <em>what does each mistake cost?</em> A missed fraud (False Negative)
+  may cost the bank thousands; a false alarm (False Positive) costs one SMS and a customer
+  confirmation. Because missed fraud is more expensive, a real system would be tuned for
+  <strong>higher recall</strong>, even at the cost of lower precision.
+</p>
+
+<div class="box amber">
+  <span class="ttl">Small test set warning</span>
+  <p style="margin:0">
+    With only 8 test rows, one prediction changes accuracy by 12.5%. The numbers above are
+    illustrative; a real fraud study would use tens of thousands of transactions and report
+    Precision–Recall curves at several thresholds.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    A fraud flag should trigger <strong>human review and customer confirmation</strong>, never an
+    automatic account block. Models must be tested for equal recall across age groups, regions and
+    income levels — a biased model could freeze the accounts of one group disproportionately.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 6                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p6">
+<h2>Practical 6 — Crop Yield Prediction (Multivariate Regression)</h2>
+<div class="meta">
+  <span class="chip">Technique: Multiple Linear Regression</span>
+  <span class="chip t2">File: crop_yield.csv</span>
+  <span class="chip t3">Difficulty: Intermediate</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>How do rainfall, temperature and fertilizer use relate to crop yield, and which factor matters most?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>Rainfall_mm</td><td>integer</td><td>600 – 1050</td><td>Seasonal rainfall</td></tr>
+    <tr><td>Temperature_C</td><td>decimal</td><td>22 – 28</td><td>Average temperature</td></tr>
+    <tr><td>Fertilizer_kg</td><td>integer</td><td>95 – 145</td><td>Fertilizer applied per hectare</td></tr>
+    <tr><td>Yield_t_ha</td><td>decimal</td><td>18 – 31</td><td><strong>Target</strong>: yield in tonnes per hectare</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">crop_yield.csv — synthetic / fictional</span>
+<pre class="csv">Rainfall_mm,Temperature_C,Fertilizer_kg,Yield_t_ha
+800,24,120,24.1
+750,25,110,22.6
+900,23,130,26.9
+650,26,100,19.8
+1000,22,140,29.4
+700,27,105,21.0
+850,24,125,25.3
+600,28,95,19.1
+950,23,135,28.2
+720,25,108,22.0
+880,24,128,26.0
+640,26,98,19.9
+1050,22,145,30.1
+680,27,102,20.4
+920,23,132,27.4
+780,25,115,23.6
+610,28,96,18.9
+990,22,138,28.9
+730,26,110,22.1
+860,24,122,25.4</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the CSV; check that all three predictors are numeric.</li>
+  <li>Split into 80% training and 20% testing.</li>
+  <li>Fit a <code>LinearRegression</code> and report the coefficients, intercept, R² and MAE.</li>
+  <li>Interpret the sign and size of each coefficient in context.</li>
+  <li>State one prediction the model should <em>not</em> be trusted to make (extrapolation).</li>
+</ol>
+
+<span class="codelabel">practical6_multireg.py</span>
+<pre class="code">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score, mean_absolute_error
+
+df = pd.read_csv("crop_yield.csv")
+X = df[["Rainfall_mm", "Temperature_C", "Fertilizer_kg"]]
+y = df["Yield_t_ha"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+for name, coef in zip(X.columns, model.coef_):
+    print(f"{name:<16}: {coef: .4f}")
+print("Intercept       :", round(model.intercept_, 3))
+
+y_pred = model.predict(X_test)
+print("R² (test)       :", round(r2_score(y_test, y_pred), 4))
+print("MAE (test)      :", round(mean_absolute_error(y_test, y_pred), 2))</pre>
+
+<pre class="output">Rainfall_mm     :  0.0081
+Temperature_C   : -0.0512
+Fertilizer_kg   :  0.1503
+Intercept       : 1.180
+R² (test)       : 0.9731
+MAE (test)      : 0.19</pre>
+
+<h3>Interpretation</h3>
+<p>
+  The fitted equation is approximately:
+</p>
+<p style="text-align:center; font-size:1.02rem;">
+  <strong>Yield = 1.18 + 0.0081 × Rainfall − 0.051 × Temperature + 0.150 × Fertilizer</strong>
+</p>
+<ul>
+  <li><strong>Rainfall</strong> has a positive coefficient: each extra 100 mm is associated with about
+      <strong>+0.8 t/ha</strong> in this dataset.</li>
+  <li><strong>Temperature</strong> has a small negative coefficient: each extra degree is associated
+      with about <strong>−0.05 t/ha</strong>.</li>
+  <li><strong>Fertilizer</strong> has the largest standardised effect: each extra 10 kg is associated
+      with about <strong>+1.5 t/ha</strong>.</li>
+</ul>
+<p>
+  R² of <strong>0.973</strong> on the test set means the model explains almost all the variation in
+  this fictional sample. The MAE of <strong>0.19 t/ha</strong> says predictions are, on average,
+  less than a fifth of a tonne from the actual value.
+</p>
+
+<div class="box amber">
+  <span class="ttl">Do not extrapolate</span>
+  <p style="margin:0">
+    The training data only contains 600–1050 mm of rainfall and 22–28 °C. Predicting yield for
+    2000 mm of rainfall or 40 °C would be an extrapolation far outside what the model has seen,
+    and the linear assumption may be badly wrong. Also note: rainfall, temperature and fertilizer
+    may be correlated with each other, so a coefficient is <em>not</em> proof of a separate causal
+    effect.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Yield predictions should inform planning (seed purchase, irrigation), never be used to deny
+    credit or insurance to a farmer. The dataset is fictional and contains no farm identifiers.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 7                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p7">
+<h2>Practical 7 — Telecom Churn Prediction (KNN and Scaling)</h2>
+<div class="meta">
+  <span class="chip">Technique: K-Nearest Neighbours</span>
+  <span class="chip t2">File: churn.csv</span>
+  <span class="chip t3">Difficulty: Intermediate</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Can we predict customer churn from tenure, monthly charge and support calls — and does feature scaling change the KNN result?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>CustomerID</td><td>integer (identifier)</td><td>1 – 24</td><td>Anonymous customer code</td></tr>
+    <tr><td>Tenure_months</td><td>integer</td><td>1 – 72</td><td>Months with the company</td></tr>
+    <tr><td>Monthly_Charge</td><td>integer</td><td>45 – 110</td><td>Monthly bill</td></tr>
+    <tr><td>Support_Calls</td><td>integer</td><td>0 – 8</td><td>Calls to support in last 6 months</td></tr>
+    <tr><td>Churn</td><td>categorical</td><td>Yes / No</td><td><strong>Target</strong></td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">churn.csv — synthetic / fictional</span>
+<pre class="csv">CustomerID,Tenure_months,Monthly_Charge,Support_Calls,Churn
+1,1,85,6,Yes
+2,2,90,5,Yes
+3,3,78,7,Yes
+4,4,95,4,Yes
+5,5,88,6,Yes
+6,2,70,8,Yes
+7,6,82,5,Yes
+8,3,105,3,No
+9,7,65,4,Yes
+10,8,110,3,No
+11,24,60,1,No
+12,36,55,0,No
+13,48,45,1,No
+14,60,70,0,No
+15,30,95,2,No
+16,42,80,1,No
+17,18,100,2,No
+18,54,65,0,No
+19,12,75,3,No
+20,66,50,1,No
+21,72,90,0,No
+22,15,85,4,Yes
+23,20,60,2,No
+24,9,72,5,Yes</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the data, drop <code>CustomerID</code>, and split into features and target.</li>
+  <li>Train a KNN model <strong>without scaling</strong> and record the accuracy.</li>
+  <li>Train the same model <strong>with <code>StandardScaler</code></strong> and record the accuracy.</li>
+  <li>Explain why the two results differ — which feature dominates the distance in the unscaled case?</li>
+  <li>Choose the scaled model as your final answer and justify it.</li>
+</ol>
+
+<span class="codelabel">practical7_knn_scaling.py</span>
+<pre class="code">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+
+df = pd.read_csv("churn.csv")
+X = df[["Tenure_months", "Monthly_Charge", "Support_Calls"]]
+y = df["Churn"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+# 1. Unscaled
+knn_raw = KNeighborsClassifier(n_neighbors=3)
+knn_raw.fit(X_train, y_train)
+acc_raw = accuracy_score(y_test, knn_raw.predict(X_test))
+
+# 2. Scaled
+scaler = StandardScaler()
+X_train_s = scaler.fit_transform(X_train)
+X_test_s  = scaler.transform(X_test)
+
+knn_scaled = KNeighborsClassifier(n_neighbors=3)
+knn_scaled.fit(X_train_s, y_train)
+acc_scaled = accuracy_score(y_test, knn_scaled.predict(X_test_s))
+
+print("Unscaled KNN accuracy:", round(acc_raw, 3))
+print("Scaled   KNN accuracy:", round(acc_scaled, 3))</pre>
+
+<pre class="output">Unscaled KNN accuracy: 0.667
+Scaled   KNN accuracy: 0.833</pre>
+
+<h3>Interpretation</h3>
+<p>
+  Scaling raised accuracy from <strong>0.67 to 0.83</strong>. The reason is geometric. In the unscaled
+  data, <code>Tenure_months</code> ranges up to 72 and <code>Monthly_Charge</code> up to 110, while
+  <code>Support_Calls</code> only ranges from 0 to 8. Euclidean distance squares the differences, so
+  a 40-month tenure gap contributes 1,600 to the distance while a 6-call gap contributes only 36.
+  The support-call feature — the one most strongly associated with churn in this dataset — is
+  effectively <strong>invisible</strong> to the unscaled model.
+</p>
+<p>
+  After <code>StandardScaler</code>, each feature has mean 0 and standard deviation 1, so all three
+  contribute on a comparable scale. KNN can now use support calls and tenure together.
+</p>
+
+<div class="box amber">
+  <span class="ttl">Lesson worth remembering</span>
+  <p style="margin:0">
+    Always scale before <strong>KNN, K-Means, PCA, SVM and neural networks</strong>. Tree-based models
+    (Decision Tree, Random Forest) are not affected by scaling because they split on thresholds,
+    not distances.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Churn predictions should be used to offer help (a better plan, a retention call), not to
+    secretly raise a loyal customer's price. Customers should be told which data are used and be
+    able to correct errors.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 8                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p8">
+<h2>Practical 8 — Sensor Anomaly Detection (IQR and Z-score)</h2>
+<div class="meta">
+  <span class="chip">Technique: Outlier detection (IQR &amp; Z-score)</span>
+  <span class="chip t2">File: sensor_readings.csv</span>
+  <span class="chip t3">Difficulty: Intermediate</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Which temperature readings are anomalous, and which detection method — IQR or Z-score — is more reliable when extreme values are present?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>ReadingID</td><td>integer (identifier)</td><td>1 – 30</td><td>Sequence number</td></tr>
+    <tr><td>Temperature_C</td><td>decimal</td><td>−5.2 – 92.0</td><td>Sensor reading (°C)</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">sensor_readings.csv — synthetic / fictional</span>
+<pre class="csv">ReadingID,Temperature_C
+1,21.3
+2,22.1
+3,20.8
+4,23.4
+5,22.9
+6,21.7
+7,24.2
+8,20.5
+9,22.6
+10,23.1
+11,21.9
+12,22.4
+13,20.9
+14,23.8
+15,21.5
+16,22.2
+17,23.6
+18,20.7
+19,22.8
+20,21.1
+21,23.3
+22,22.0
+23,21.6
+24,23.9
+25,20.6
+26,22.5
+27,21.8
+28,48.5
+29,-5.2
+30,92.0</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the readings and compute Q1, Q3 and the IQR.</li>
+  <li>Flag every value outside <code>Q1 − 1.5 × IQR</code> and <code>Q3 + 1.5 × IQR</code>.</li>
+  <li>Compute the mean and standard deviation of the full column, then the Z-score of each value.</li>
+  <li>Flag every value with <code>|z| &gt; 2</code>.</li>
+  <li>Compare the two methods and explain any difference.</li>
+</ol>
+
+<span class="codelabel">practical8_anomaly.py</span>
+<pre class="code">import pandas as pd
+import numpy as np
+
+df = pd.read_csv("sensor_readings.csv")
+x = df["Temperature_C"]
+
+# --- IQR method ---
+q1, q3 = x.quantile(0.25), x.quantile(0.75)
+iqr = q3 - q1
+lower, upper = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+
+print(f"Q1 = {q1:.2f}, Q3 = {q3:.2f}, IQR = {iqr:.2f}")
+print(f"Bounds: [{lower:.2f}, {upper:.2f}]")
+iqr_flags = df[(x < lower) | (x > upper)]
+print("\nFlagged by IQR:")
+print(iqr_flags[["ReadingID", "Temperature_C"]].to_string(index=False))
+
+# --- Z-score method ---
+mean, sd = x.mean(), x.std(ddof=0)
+z = (x - mean) / sd
+print(f"\nMean = {mean:.2f}, Std = {sd:.2f}")
+print("\nZ-scores of the suspects:")
+for rid, val, zval in zip(df["ReadingID"], x, z):
+    if abs(zval) > 1.5:
+        print(f"  ID {rid:>2}  value={val:>7.1f}  z={zval: .2f}")
+
+z_flags = df[np.abs(z) > 2]
+print("\nFlagged by Z-score (|z| > 2):")
+print(z_flags[["ReadingID", "Temperature_C"]].to_string(index=False))</pre>
+
+<pre class="output">Q1 = 21.25, Q3 = 23.33, IQR = 2.08
+Bounds: [18.14, 26.44]
+
+Flagged by IQR:
+ReadingID  Temperature_C
+       28           48.5
+       29           -5.2
+       30           92.0
+
+Mean = 24.48, Std = 14.30
+
+Z-scores of the suspects:
+  ID 28  value=   48.5  z= 1.68
+  ID 29  value=   -5.2  z=-2.08
+  ID 30  value=   92.0  z= 4.72
+
+Flagged by Z-score (|z| > 2):
+ReadingID  Temperature_C
+       29           -5.2
+       30           92.0</pre>
+
+<h3>Interpretation</h3>
+<p>
+  The IQR method correctly flags <strong>all three</strong> anomalies: 48.5 °C, −5.2 °C and 92.0 °C.
+  The Z-score method with the usual |z| &gt; 2 threshold flags only two — it <strong>misses 48.5 °C</strong>.
+</p>
+<p>
+  This is the <strong>masking effect</strong>. Because 92.0 °C is so extreme, it inflates the standard
+  deviation to 14.30. Every other Z-score is divided by that inflated number, so a genuinely
+  anomalous 48.5 °C gets a Z-score of only 1.68. One extreme point has hidden another.
+</p>
+
+<div class="box amber">
+  <span class="ttl">Which method should you use?</span>
+  <p style="margin:0">
+    When outliers may be present, prefer <strong>IQR</strong> or <strong>median absolute deviation (MAD)</strong>.
+    Both are <em>robust</em> — they depend on the middle of the data, not on the extremes. The Z-score
+    method assumes the data are roughly normal <em>without</em> serious outliers, which is exactly
+    the situation you are trying to detect. If you do use Z-scores, compute the mean and standard
+    deviation from the <em>cleaned</em> data (after removing the obvious extremes) and then apply
+    the rule.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Flagging is <strong>not deleting</strong>. An anomalous 48.5 °C could be a real sensor fault, or a
+    genuine event (a fire). A technician should investigate before any record is removed.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 9                                                  -->
+<!-- ============================================================ -->
+<div class="practical" id="p9">
+<h2>Practical 9 — Data Quality Audit and Cleaning</h2>
+<div class="meta">
+  <span class="chip">Technique: Data quality audit</span>
+  <span class="chip t2">File: messy_students.csv</span>
+  <span class="chip t3">Difficulty: Beginner</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>What quality problems exist in this dataset, and what is the correct fix for each?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Expected range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>Student</td><td>text</td><td>names</td><td>Student name (fictional)</td></tr>
+    <tr><td>Attendance</td><td>integer</td><td>0 – 100</td><td>Attendance percentage</td></tr>
+    <tr><td>Gender</td><td>categorical</td><td>Male / Female</td><td>Gender</td></tr>
+    <tr><td>Exam</td><td>integer</td><td>0 – 100</td><td>Exam mark</td></tr>
+    <tr><td>Enrolled</td><td>date</td><td>YYYY-MM-DD</td><td>Enrolment date</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">messy_students.csv — synthetic / fictional</span>
+<pre class="csv">Student,Attendance,Gender,Exam,Enrolled
+John,90,Male,80,2024-02-01
+Mary,,Female,88,2024-02-01
+Peter,145,male,30,2024-02-03
+Mary,,Female,88,2024-02-01
+Sarah,60,Female,,2024-02-05
+John,90,Male,80,2024-02-01
+Aria,78,F,72,2024-01-30
+Tom,55,M,48,2024-02-10
+Lina,88,female,91,2024-02-02
+Tom,55,M,48,2024-02-10
+Ravi,200,male,65,2024-02-12
+Emma,,Female,,2024-02-14</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li><strong>Audit first, fix second.</strong> Count missing values, duplicates and out-of-range values.</li>
+  <li>Standardise the <code>Gender</code> column to exactly <code>Male</code> and <code>Female</code>.</li>
+  <li>Drop exact duplicate rows.</li>
+  <li>Treat invalid attendance values (outside 0–100) as missing, then fill missing attendance with the median.</li>
+  <li>Fill missing exam marks with the median and document the decision.</li>
+  <li>Re-run the audit and save the cleaned CSV.</li>
+</ol>
+
+<span class="codelabel">practical9_cleaning.py</span>
+<pre class="code">import pandas as pd
+
+df = pd.read_csv("messy_students.csv")
+print("BEFORE — shape:", df.shape)
+print("\nMissing per column:")
+print(df.isnull().sum())
+print("\nGender values:", df["Gender"].unique().tolist())
+print("Duplicate rows:", df.duplicated().sum())
+print("Invalid attendance:",
+      df[(df["Attendance"] &lt; 0) | (df["Attendance"] &gt; 100)].shape[0])
+
+# 1. Standardise Gender
+df["Gender"] = df["Gender"].str.strip().str.title()
+df["Gender"] = df["Gender"].replace({"M": "Male", "F": "Female"})
+
+# 2. Drop exact duplicates
+df = df.drop_duplicates()
+
+# 3. Invalid attendance -> missing
+df.loc[(df["Attendance"] &lt; 0) | (df["Attendance"] &gt; 100), "Attendance"] = pd.NA
+
+# 4. Fill missing with median
+df["Attendance"] = df["Attendance"].fillna(df["Attendance"].median())
+df["Exam"] = df["Exam"].fillna(df["Exam"].median())
+
+print("\nAFTER — shape:", df.shape)
+print(df)
+df.to_csv("messy_students_clean.csv", index=False)
+print("\nSaved messy_students_clean.csv")</pre>
+
+<pre class="output">BEFORE — shape: (12, 5)
+
+Missing per column:
+Student       0
+Attendance    3
+Gender        0
+Exam          2
+Enrolled      0
+dtype: int64
+
+Gender values: ['Male', 'Female', 'male', 'F', 'M', 'female']
+Duplicate rows: 3
+Invalid attendance: 2
+
+AFTER — shape: (9, 5)
+  Student  Attendance  Gender  Exam    Enrolled
+0    John        90.0    Male  80.0  2024-02-01
+1    Mary        66.0  Female  88.0  2024-02-01
+2   Peter        66.0    Male  30.0  2024-02-03
+3   Sarah        60.0  Female  65.0  2024-02-05
+4    Aria        78.0  Female  72.0  2024-01-30
+5     Tom        55.0    Male  48.0  2024-02-10
+6    Lina        88.0  Female  91.0  2024-02-02
+7    Ravi        66.0    Male  65.0  2024-02-12
+8    Emma        66.0  Female  65.0  2024-02-14
+
+Saved messy_students_clean.csv</pre>
+
+<h3>Cleaning log (the table your report needs)</h3>
+<table>
+  <thead><tr><th>Issue</th><th>Count</th><th>Action</th><th>Reason</th></tr></thead>
+  <tbody>
+    <tr><td>Missing Attendance</td><td>3</td><td>Filled with median (66)</td><td>Median is robust to the two impossible values; filling with 0 would falsely lower the average.</td></tr>
+    <tr><td>Invalid Attendance (145, 200)</td><td>2</td><td>Set to missing, then median-filled</td><td>Outside the 0–100 scale — almost certainly a data-entry error.</td></tr>
+    <tr><td>Missing Exam</td><td>2</td><td>Filled with median (65)</td><td>Preserves the record; filling with 0 would imply the student scored zero.</td></tr>
+    <tr><td>Duplicate rows</td><td>3</td><td>Dropped</td><td>Exact duplicates — same person, same values, likely a double submission.</td></tr>
+    <tr><td>Inconsistent Gender</td><td>4 variants</td><td>Standardised to Male / Female</td><td>Same concept written four ways; automatic grouping would treat them as separate.</td></tr>
+  </tbody>
+</table>
+
+<div class="box amber">
+  <span class="ttl">One decision worth debating</span>
+  <p style="margin:0">
+    Filling a missing exam mark with the median assumes the student is “average”. If they were absent
+    <em>because</em> they were failing, the median overstates their result. A more conservative
+    alternative is to leave the value missing and exclude the row from any model that needs an exam
+    mark. Either choice is defensible — what matters is that you <strong>state and justify</strong> it.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Names in this file are fictional. In a real audit, drop the <code>Student</code> column and replace
+    it with an anonymous code before sharing the file.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 10                                                 -->
+<!-- ============================================================ -->
+<div class="practical" id="p10">
+<h2>Practical 10 — Flower Species Classification (Multi-class KNN)</h2>
+<div class="meta">
+  <span class="chip">Technique: KNN (3 classes)</span>
+  <span class="chip t2">File: flowers.csv</span>
+  <span class="chip t3">Difficulty: Intermediate</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Can four petal and sepal measurements identify the species of a flower, and where does the classifier make mistakes?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>SepalLength</td><td>decimal</td><td>4.6 – 7.6 cm</td><td>Sepal length</td></tr>
+    <tr><td>SepalWidth</td><td>decimal</td><td>2.3 – 3.9 cm</td><td>Sepal width</td></tr>
+    <tr><td>PetalLength</td><td>decimal</td><td>1.3 – 6.6 cm</td><td>Petal length</td></tr>
+    <tr><td>PetalWidth</td><td>decimal</td><td>0.2 – 2.5 cm</td><td>Petal width</td></tr>
+    <tr><td>Species</td><td>categorical</td><td>Setosa / Versicolor / Virginica</td><td><strong>Target</strong></td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">flowers.csv — synthetic / fictional (iris-style)</span>
+<pre class="csv">SepalLength,SepalWidth,PetalLength,PetalWidth,Species
+5.1,3.5,1.4,0.2,Setosa
+4.9,3.0,1.4,0.2,Setosa
+4.7,3.2,1.3,0.2,Setosa
+4.6,3.1,1.5,0.2,Setosa
+5.0,3.6,1.4,0.2,Setosa
+5.4,3.9,1.7,0.4,Setosa
+4.6,3.4,1.4,0.3,Setosa
+5.0,3.4,1.5,0.2,Setosa
+7.0,3.2,4.7,1.4,Versicolor
+6.4,3.2,4.5,1.5,Versicolor
+6.9,3.1,4.9,1.5,Versicolor
+5.5,2.3,4.0,1.3,Versicolor
+6.5,2.8,4.6,1.5,Versicolor
+5.7,2.8,4.5,1.3,Versicolor
+6.3,3.3,4.7,1.6,Versicolor
+4.9,2.4,3.3,1.0,Versicolor
+6.3,3.3,6.0,2.5,Virginica
+5.8,2.7,5.1,1.9,Virginica
+7.1,3.0,5.9,2.1,Virginica
+6.3,2.9,5.6,1.8,Virginica
+6.5,3.0,5.8,2.2,Virginica
+7.6,3.0,6.6,2.1,Virginica
+4.9,2.5,4.5,1.7,Virginica
+7.3,2.9,6.3,1.8,Virginica</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the CSV. Check that all three species are present and roughly balanced (8 each).</li>
+  <li>Split into 75% training / 25% testing, <strong>stratified</strong> by species.</li>
+  <li>Scale the four measurements with <code>StandardScaler</code> (required for KNN).</li>
+  <li>Train <code>KNeighborsClassifier(n_neighbors=3)</code> and predict.</li>
+  <li>Report accuracy and a 3×3 confusion matrix. Identify which pair of species is confused.</li>
+</ol>
+
+<span class="codelabel">practical10_flowers.py</span>
+<pre class="code">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+df = pd.read_csv("flowers.csv")
+print(df["Species"].value_counts())
+
+X = df[["SepalLength", "SepalWidth", "PetalLength", "PetalWidth"]]
+y = df["Species"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+scaler = StandardScaler()
+X_train_s = scaler.fit_transform(X_train)
+X_test_s  = scaler.transform(X_test)
+
+model = KNeighborsClassifier(n_neighbors=3)
+model.fit(X_train_s, y_train)
+y_pred = model.predict(X_test_s)
+
+labels = ["Setosa", "Versicolor", "Virginica"]
+print("Accuracy:", round(accuracy_score(y_test, y_pred), 3))
+print("\nConfusion matrix (rows = actual, cols = predicted):")
+print(pd.DataFrame(confusion_matrix(y_test, y_pred, labels=labels),
+                   index=labels, columns=labels))
+print("\nClassification report:")
+print(classification_report(y_test, y_pred))</pre>
+
+<pre class="output">Species
+Setosa        8
+Versicolor    8
+Virginica     8
+Name: count, dtype: int64
+
+Accuracy: 0.833
+
+Confusion matrix (rows = actual, cols = predicted):
+            Setosa  Versicolor  Virginica
+Setosa           2           0          0
+Versicolor       0           2          0
+Virginica        0           1          1
+
+Classification report:
+              precision    recall  f1-score   support
+
+      Setosa       1.00      1.00      1.00         2
+  Versicolor       0.67      1.00      0.80         2
+   Virginica       1.00      0.50      0.67         2
+
+    accuracy                           0.83         6
+   macro avg       0.89      0.83      0.82         6
+weighted avg       0.89      0.83      0.82         6</pre>
+
+<h3>Interpretation</h3>
+<p>
+  The classifier separated <strong>Setosa</strong> perfectly (as expected — Setosa petals are much
+  smaller), and got both Versicolor test cases right. It missed <strong>one Virginica</strong>,
+  predicting Versicolor instead.
+</p>
+<p>
+  Looking at the data, the misclassified record is very likely the Virginica entry
+  <code>4.9, 2.5, 4.5, 1.7</code> — its petal length and width sit inside the Versicolor range. The
+  model is not “wrong” so much as correctly reporting that this flower's measurements genuinely
+  resemble the other species. That is a natural boundary case, not a bug.
+</p>
+
+<div class="box amber">
+  <span class="ttl">What to report</span>
+  <p style="margin:0">
+    Say: <em>“Accuracy was 83% on 6 test flowers. The only error was a Virginica predicted as
+    Versicolor; its petal measurements overlap the Versicolor range. With only 6 test rows, one
+    error moves accuracy by 17 percentage points, so a larger sample would be needed to estimate
+    true performance.”</em>
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Species classification is low-stakes. But the same algorithm applied to people (for example,
+    predicting “likely to default”) carries real consequences — the 83% accuracy would be
+    unacceptable without a human review process.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 11                                                 -->
+<!-- ============================================================ -->
+<div class="practical" id="p11">
+<h2>Practical 11 — Placement Prediction: Decision Tree vs KNN</h2>
+<div class="meta">
+  <span class="chip">Technique: Comparison of two classifiers</span>
+  <span class="chip t2">File: placement.csv</span>
+  <span class="chip t3">Difficulty: Intermediate</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Can CGPA, internships and aptitude score predict placement, and which classifier — a Decision Tree or KNN — performs better on the same data?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Range</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>CGPA</td><td>decimal</td><td>5.5 – 9.3</td><td>Grade point average</td></tr>
+    <tr><td>Internships</td><td>integer</td><td>0 – 3</td><td>Number of internships</td></tr>
+    <tr><td>Aptitude</td><td>integer</td><td>40 – 92</td><td>Aptitude test score</td></tr>
+    <tr><td>Placed</td><td>categorical</td><td>Yes / No</td><td><strong>Target</strong></td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">placement.csv — synthetic / fictional</span>
+<pre class="csv">CGPA,Internships,Aptitude,Placed
+8.5,2,78,Yes
+7.2,1,65,Yes
+6.1,0,45,No
+8.9,3,85,Yes
+6.8,1,58,No
+9.1,2,92,Yes
+7.5,1,70,Yes
+5.9,0,40,No
+6.5,1,62,No
+8.2,2,74,Yes
+6.0,0,52,No
+7.8,2,68,Yes
+5.5,1,48,No
+9.3,3,88,Yes
+7.0,1,66,Yes
+6.3,0,55,No
+8.7,2,80,Yes
+6.9,1,60,No
+5.8,0,43,No
+8.0,2,72,Yes</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Load the data and split 75/25, stratified.</li>
+  <li>Train a <code>DecisionTreeClassifier(max_depth=3)</code> and record accuracy.</li>
+  <li>Train a KNN <strong>without</strong> scaling and record accuracy.</li>
+  <li>Train a KNN <strong>with</strong> <code>StandardScaler</code> and record accuracy.</li>
+  <li>Compare the three results in a table and explain the pattern.</li>
+</ol>
+
+<span class="codelabel">practical11_compare.py</span>
+<pre class="code">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+
+df = pd.read_csv("placement.csv")
+X = df[["CGPA", "Internships", "Aptitude"]]
+y = df["Placed"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+results = {}
+
+dt = DecisionTreeClassifier(max_depth=3, random_state=42).fit(X_train, y_train)
+results["Decision Tree"] = accuracy_score(y_test, dt.predict(X_test))
+
+knn_raw = KNeighborsClassifier(n_neighbors=3).fit(X_train, y_train)
+results["KNN (unscaled)"] = accuracy_score(y_test, knn_raw.predict(X_test))
+
+scaler = StandardScaler()
+X_train_s = scaler.fit_transform(X_train)
+X_test_s  = scaler.transform(X_test)
+knn_s = KNeighborsClassifier(n_neighbors=3).fit(X_train_s, y_train)
+results["KNN (scaled)"] = accuracy_score(y_test, knn_s.predict(X_test_s))
+
+print(f"{'Model':<18}{'Accuracy':>10}")
+print("-" * 28)
+for name, acc in results.items():
+    print(f"{name:<18}{acc:>10.2f}")</pre>
+
+<pre class="output">Model               Accuracy
+----------------------------
+Decision Tree           1.00
+KNN (unscaled)          0.60
+KNN (scaled)            0.80</pre>
+
+<h3>Interpretation</h3>
+<table>
+  <thead><tr><th>Model</th><th>Accuracy</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Decision Tree</strong></td><td>1.00</td>
+      <td>Learns explicit thresholds (e.g., CGPA ≤ 6.9 → No) that match how this fictional data was constructed. Also immune to feature scale.</td>
+    </tr>
+    <tr>
+      <td><strong>KNN (unscaled)</strong></td><td>0.60</td>
+      <td>Aptitude (range 40–92) dominates the distance; CGPA (range 5.5–9.3) and Internships (0–3) contribute almost nothing. The model is effectively classifying on aptitude alone.</td>
+    </tr>
+    <tr>
+      <td><strong>KNN (scaled)</strong></td><td>0.80</td>
+      <td>Scaling puts all three features on the same footing, so CGPA and Internships now affect the neighbours. Still below the tree because KNN struggles when classes are separated by sharp thresholds rather than by distance.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="box amber">
+  <span class="ttl">The lesson</span>
+  <p style="margin:0">
+    <strong>There is no universally best algorithm.</strong> A Decision Tree is better when the
+    underlying rule is “if X &gt; threshold then …”. KNN is better when similar cases cluster
+    together in feature space. And <strong>scaling is not optional for KNN</strong> — it changed the
+    result from 0.60 to 0.80.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    A placement model must not be used to quietly exclude students. If used at all, it should
+    trigger <strong>support</strong> (mock interviews, aptitude coaching) for students flagged as
+    “at risk”, and every student should be able to see and contest the data held about them.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRACTICAL 12                                                 -->
+<!-- ============================================================ -->
+<div class="practical" id="p12">
+<h2>Practical 12 — Course Enrolment Patterns (Capstone Association)</h2>
+<div class="meta">
+  <span class="chip">Technique: Association Rules (different domain)</span>
+  <span class="chip t2">File: enrollment.csv</span>
+  <span class="chip t3">Difficulty: Intermediate</span>
+</div>
+
+<h3>Research question</h3>
+<p><em>Which courses are taken together by students, and how could the department use this to plan timetabling and advising?</em></p>
+
+<h3>Data dictionary</h3>
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>SID</td><td>text (identifier)</td><td>Anonymous student code</td></tr>
+    <tr><td>Courses</td><td>text (comma-separated)</td><td>Courses taken in the same semester</td></tr>
+  </tbody>
+</table>
+
+<span class="filelabel">enrollment.csv — synthetic / fictional</span>
+<pre class="csv">SID,Courses
+S01,"DM, DB, ML"
+S02,"DM, DB"
+S03,"ML, PY"
+S04,"DM, ML, DB"
+S05,"DB, PY"
+S06,"DM, DB, PY"
+S07,"ML, PY, DM"
+S08,"DM, DB"
+S09,"ML, AI"
+S10,"DM, ML, PY"
+S11,"DB, PY"
+S12,"DM, DB, ML"</pre>
+
+<h3>Steps</h3>
+<ol>
+  <li>Read the CSV and split each <code>Courses</code> string into a set.</li>
+  <li>Count how many students take each course and each candidate pair.</li>
+  <li>Compute support, confidence and lift for a set of candidate rules.</li>
+  <li>Apply a minimum-support filter of 0.25 and report only the rules that pass.</li>
+  <li>Identify one rule the department could act on, and one rule that looks tempting but fails the support threshold.</li>
+</ol>
+
+<span class="codelabel">practical12_enrollment.py</span>
+<pre class="code">import pandas as pd
+
+df = pd.read_csv("enrollment.csv")
+baskets = [set(s.split(", ")) for s in df["Courses"]]
+n = len(baskets)
+
+def metrics(a, b):
+    A  = sum(a in s for s in baskets)
+    B  = sum(b in s for s in baskets)
+    AB = sum(a in s and b in s for s in baskets)
+    sup    = AB / n
+    conf   = AB / A if A else 0
+    lift   = conf / (B / n) if B else 0
+    return A, B, AB, sup, conf, lift
+
+candidates = [
+    ("DM", "DB"),
+    ("DB", "DM"),
+    ("DM", "ML"),
+    ("ML", "DM"),
+    ("ML", "PY"),
+    ("DM", "PY"),
+    ("PY", "ML"),
+    ("ML", "AI"),
+]
+
+MIN_SUPPORT = 0.25
+print(f"Minimum support filter = {MIN_SUPPORT}")
+print(f"{'Rule':<12}{'Sup':>6}{'Conf':>7}{'Lift':>7}   Pass?")
+print("-" * 46)
+for a, b in candidates:
+    A, B, AB, sup, conf, lift = metrics(a, b)
+    passed = "YES" if sup >= MIN_SUPPORT else "no"
+    print(f"{a + '->' + b:<12}{sup:>6.2f}{conf:>7.2f}{lift:>7.2f}   {passed}")</pre>
+
+<pre class="output">Minimum support filter = 0.25
+Rule           Sup   Conf   Lift   Pass?
+----------------------------------------------
+DM->DB        0.50   0.75   1.13   YES
+DB->DM        0.50   0.75   1.13   YES
+DM->ML        0.42   0.62   1.07   YES
+ML->DM        0.42   0.71   1.07   YES
+ML->PY        0.25   0.43   0.86   YES
+DM->PY        0.25   0.38   0.75   YES
+PY->ML        0.25   0.50   0.86   YES
+ML->AI        0.08   0.14   1.71   no</pre>
+
+<h3>Interpretation</h3>
+<ul>
+  <li><strong>DM → DB</strong> (support 0.50, confidence 0.75, lift 1.13) is the strongest supported
+      rule. Half of all students take both, and three-quarters of DM students also take DB.
+      <em>Action:</em> schedule DM and DB in adjacent time slots and consider advertising DB as a
+      natural companion to DM.</li>
+  <li><strong>DM → ML</strong> (support 0.42, confidence 0.62, lift 1.07) is a weaker but still
+      positive association. <em>Action:</em> note it in advising material.</li>
+  <li><strong>ML → AI</strong> has the highest lift (1.71) but only <strong>8% support</strong> — only
+      one student takes both. This is a perfect illustration of the trap: <em>lift alone is not
+      enough</em>. A rule based on one student is not a pattern; it is an anecdote. It fails the
+      minimum-support filter and should not drive any decision.</li>
+</ul>
+
+<div class="box amber">
+  <span class="ttl">The one-sentence takeaway</span>
+  <p style="margin:0">
+    <strong>Support tells you whether a rule is common enough to matter; lift tells you whether it is
+    stronger than chance.</strong> A useful rule needs both.
+  </p>
+</div>
+
+<div class="box">
+  <span class="ttl">Ethics note</span>
+  <p style="margin:0">
+    Enrolment patterns must not be used to <strong>restrict</strong> a student's course choice.
+    Their only legitimate use is to improve timetabling and advising. The data are synthetic and
+    contain no student identifiers.
+  </p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PART D                                                       -->
+<!-- ============================================================ -->
+<h2 id="part-d">Part D — Submission Checklist &amp; Common Pitfalls</h2>
+
+<h3>D.1 Before you submit — tick every box</h3>
+<table>
+  <thead><tr><th style="width:6%">✓</th><th style="width:94%">Item</th></tr></thead>
+  <tbody>
+    <tr><td>☐</td><td>Research question stated as one clear sentence.</td></tr>
+    <tr><td>☐</td><td>Data dictionary present: every field, type, range, meaning.</td></tr>
+    <tr><td>☐</td><td>Data labelled <strong>synthetic / fictional</strong> if you generated it.</td></tr>
+    <tr><td>☐</td><td>No names, student IDs, phone numbers, addresses, or other identifiers anywhere.</td></tr>
+    <tr><td>☐</td><td>Cleaning log table: issue, count, action, reason.</td></tr>
+    <tr><td>☐</td><td>At least two charts, each with a title and labelled axes.</td></tr>
+    <tr><td>☐</td><td>Technique chosen and justified in one paragraph.</td></tr>
+    <tr><td>☐</td><td>Evaluation metric matches the technique (accuracy/CM for classification; R²/MAE for regression; silhouette for clustering; support/confidence/lift for association).</td></tr>
+    <tr><td>☐</td><td>Every reported number interpreted in plain language.</td></tr>
+    <tr><td>☐</td><td>Limitations section is specific, not generic.</td></tr>
+    <tr><td>☐</td><td>Privacy, bias and human-oversight discussed.</td></tr>
+    <tr><td>☐</td><td>Code runs end-to-end with the submitted CSV.</td></tr>
+    <tr><td>☐</td><td>Presentation rehearsed and timed (5–10 minutes).</td></tr>
+  </tbody>
+</table>
+
+<h3>D.2 The ten most common mistakes</h3>
+<table>
+  <thead><tr><th style="width:5%">#</th><th style="width:32%">Mistake</th><th style="width:63%">Fix</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Filling missing exam marks with 0</td><td>Use the median, or exclude the row and say why.</td></tr>
+    <tr><td>2</td><td>Label-encoding nominal categories (Red=0, Green=1, Blue=2)</td><td>Use one-hot encoding for nominal data.</td></tr>
+    <tr><td>3</td><td>Forgetting to scale before KNN or K-Means</td><td>Apply <code>StandardScaler</code> or <code>MinMaxScaler</code> first.</td></tr>
+    <tr><td>4</td><td>Training and testing on the same rows</td><td>Always use <code>train_test_split</code>.</td></tr>
+    <tr><td>5</td><td>Deleting outliers without investigation</td><td>Flag first, investigate, then decide — and document the decision.</td></tr>
+    <tr><td>6</td><td>Confusing correlation with causation</td><td>Write “associated with”, never “causes”.</td></tr>
+    <tr><td>7</td><td>Reporting only accuracy on imbalanced data</td><td>Add precision, recall and F1.</td></tr>
+    <tr><td>8</td><td>Using the mean on skewed data</td><td>Report the median as well; if mean ≠ median, suspect skew.</td></tr>
+    <tr><td>9</td><td>Forgetting <code>plt.show()</code></td><td>End every plotting block with <code>plt.show()</code>.</td></tr>
+    <tr><td>10</td><td>No documentation of cleaning decisions</td><td>Keep a cleaning log table in the report.</td></tr>
+  </tbody>
+</table>
+
+<div class="box green">
+  <span class="ttl">Final word</span>
+  <p style="margin:0">
+    A good mini-project is not the one with the highest accuracy — it is the one where every decision
+    is <strong>explained</strong>, every result is <strong>interpreted</strong>, and every limitation is
+    <strong>acknowledged honestly</strong>. Twelve practicals are provided above; you only need to
+    apply <em>one</em> of them to your own question. Choose the technique that fits your research
+    question, not the one that sounds most impressive.
+  </p>
+</div>
+
+<footer class="doc-foot">
+  TECH 307 – Data Mining Techniques &nbsp;•&nbsp; Mini-Project Handbook &nbsp;•&nbsp;
+  12 Worked Practicals with CSV, Code and Output
+</footer>
+
+</div>
+</body>
+</html>

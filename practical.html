@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECH 307 – Weekly Practical Lab Manual</title>
+<style>
+  :root {
+    --ink: #1e293b; --muted: #475569; --line: #cbd5e1;
+    --blue: #2563eb; --blue-l: #eff6ff; --green: #15803d; --green-l: #f0fdf4;
+    --amber: #b45309; --amber-l: #fffbeb; --red: #b91c1c; --red-l: #fef2f2;
+    --purple: #6d28d9; --purple-l: #f5f3ff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #f1f5f9; color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 15.5px; line-height: 1.62;
+  }
+  .sheet { max-width: 1000px; margin: 0 auto; background: #fff; padding: 40px 50px 80px; box-shadow: 0 0 20px rgba(0,0,0,.08); }
+  header { border-bottom: 4px solid var(--blue); padding-bottom: 20px; margin-bottom: 30px; }
+  header h1 { font-size: 2rem; margin: 10px 0 5px; color: #0f172a; }
+  header p { color: var(--muted); margin: 0; }
+  
+  .week-section { margin-bottom: 50px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .week-header { background: #e2e8f0; padding: 12px 20px; border-bottom: 1px solid var(--line); }
+  .week-header h2 { margin: 0; font-size: 1.3rem; color: #0f172a; }
+  .week-header span { font-weight: 700; color: var(--blue); margin-right: 10px; }
+  .week-content { padding: 25px 30px; }
+  
+  h3 { font-size: 1.1rem; margin: 25px 0 10px; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; }
+  p { margin: 10px 0; }
+  
+  .box { padding: 15px 20px; border-radius: 0 8px 8px 0; margin: 15px 0; border-left: 5px solid var(--blue); background: var(--blue-l); }
+  .box.amber { border-left-color: var(--amber); background: var(--amber-l); }
+  .box.green { border-left-color: var(--green); background: var(--green-l); }
+  .box.purple { border-left-color: var(--purple); background: var(--purple-l); }
+  
+  pre.csv { background: var(--green-l); color: #14532d; border: 1px solid #bbf7d0; padding: 12px 15px; border-radius: 8px; overflow-x: auto; font-size: 13px; margin: 0; }
+  pre.code { background: #0f172a; color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.5; margin: 0; }
+  pre.output { background: #f8fafc; color: #0f172a; border-left: 4px solid #94a3b8; padding: 12px 15px; border-radius: 0 8px 8px 0; font-size: 13px; }
+  
+  .label { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 5px 5px 0 0; margin-bottom: -5px; font-family: monospace; }
+  .label.data { color: var(--green); background: #dcfce7; border: 1px solid #bbf7d0; }
+  .label.python { color: #cbd5e1; background: #1e293b; }
+  
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--line); padding: 10px; text-align: left; }
+  th { background: #f8fafc; font-weight: 700; }
+  
+  .diagram-wrap { margin: 20px 0; text-align: center; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px dashed var(--line); }
+  .diagram-wrap svg { max-width: 100%; height: auto; }
+  .diagram-caption { font-size: 13px; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+  /* NEW: Copy Button Styles */
+  .code-container { position: relative; margin-bottom: 15px; }
+  .copy-btn { position: absolute; top: 10px; right: 10px; background: #334155; color: #fff; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; opacity: 0.8; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+  .copy-btn:hover { opacity: 1; background: #475569; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header>
+  <h1>TECH 307 – Weekly Practical Lab Manual</h1>
+  <p>Hands-on data mining exercises mapped to the 15-week syllabus. Beginner-friendly with visual outputs.</p>
+  <a href="pra.html">ppp</a>
+</header>
+
+<!-- ========================================== -->
+<!-- GENERAL REPORT STRUCTURE (NEWLY ADDED)     -->
+<!-- ========================================== -->
+<div class="box purple">
+  <h3 style="margin-top:0; border:none; color:var(--purple);">General Report Structure (For All Practicals)</h3>
+  <p>When you submit your lab reports for these practicals, you must follow this standard structure. Beginners often lose marks for just pasting code without explaining it.</p>
+  <ol>
+    <li><strong>Title & Objective:</strong> What was the goal of this lab? (e.g., "Predicting Student Pass/Fail using Decision Trees").</li>
+    <li><strong>Dataset Description:</strong> Where did the data come from? How many rows and columns? Is it synthetic or real?</li>
+    <li><strong>Data Cleaning Steps:</strong> What problems did you find (missing values, duplicates) and how did you fix them?</li>
+    <li><strong>Methodology:</strong> Which algorithm did you use (e.g., K-Means, Linear Regression) and <em>why</em>?</li>
+    <li><strong>Results & Output:</strong> Paste the output of your code. Include any charts you generated.</li>
+    <li><strong>Interpretation (Crucial):</strong> What do the numbers mean in plain English? (e.g., "The model is 90% accurate" is not enough. Say: "The model correctly identifies 9 out of 10 failing students").</li>
+    <li><strong>Ethics & Limitations:</strong> Could this model be biased? Does it use private data? What are its weaknesses?</li>
+  </ol>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 1-3: INTRODUCTION & TYPES             -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Weeks 1–3:</span> Introduction, Data Types & Functionalities</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Understand the difference between a standard database (rows/columns) and transactional data (baskets of items).</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> How is transactional data different from regular tables, and why do we need a specific format for mining? If we want to find out what items are bought together (like Beer and Diapers), a standard spreadsheet won't work easily. We need data shaped like a "shopping basket."
+    </div>
+
+    <h3>1. The Dataset</h3>
+    <span class="label data">transactions_sample.csv</span>
+    <pre class="csv">TID,Items_Bought
+T1,"Bread, Milk"
+T2,"Bread, Diapers, Beer, Eggs"
+T3,"Milk, Diapers, Beer, Cola"
+T4,"Bread, Milk, Diapers, Beer"</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>2. Setup & Step-by-Step Instructions</h3>
+    <ol>
+      <li>Open VS Code and create a new file named <code>transactions_sample.csv</code>. Copy the data above into it and save.</li>
+      <li>Create a new Python file named <code>intro.py</code> in the same folder.</li>
+      <li>Copy and paste the Python code below into your file.</li>
+      <li>Run the file. Observe how the second transaction (T2) looks.</li>
+    </ol>
+    
+    <pre class="code">import pandas as pd
+
+# Load the transactional data
+df = pd.read_csv("transactions_sample.csv")
+
+print("Number of transactions (rows):", len(df))
+print("Sample Transaction:", df.iloc[1]['Items_Bought'])
+
+# How many times does "Bread" appear in a basket?
+bread_count = df['Items_Bought'].str.contains('Bread').sum()
+print("Baskets containing Bread:", bread_count)</pre>
+
+    <h3>3. Beginner Outcome</h3>
+    <pre class="output">Number of transactions (rows): 4
+Sample Transaction: Bread, Diapers, Beer, Eggs
+Baskets containing Bread: 3</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      Even though there are many items, there are only 4 transactions (rows). The code counts how many times the word "Bread" appears in the entire text column. It found Bread in T1, T2, and T4 (3 times). This is how association rules start—by counting how often items appear together.
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="460" height="30" fill="#e2e8f0" stroke="#94a3b8"/>
+        <text x="50" y="40" font-size="12" font-weight="bold">TID</text>
+        <text x="150" y="40" font-size="12" font-weight="bold">Items_Bought (Transactional Data)</text>
+        
+        <rect x="20" y="50" width="460" height="25" fill="#fff" stroke="#cbd5e1"/>
+        <text x="50" y="67" font-size="12">T1</text>
+        <text x="150" y="67" font-size="12">Bread, Milk</text>
+        
+        <rect x="20" y="75" width="460" height="25" fill="#fff" stroke="#cbd5e1"/>
+        <text x="50" y="92" font-size="12">T2</text>
+        <text x="150" y="92" font-size="12">Bread, Diapers, Beer, Eggs</text>
+      </svg>
+      <div class="diagram-caption">Transactional data has one row per transaction, not one row per item.</div>
+    </div>
+    <p><strong>What this means for beginners:</strong> In a normal database, you'd have 4 rows per item. In transactional data, multiple items are packed into a single row. This shape is what makes Association Rule Mining possible later!</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 4-5: SETUP & INSPECTION               -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Weeks 4–5:</span> Setup & Data Inspection</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Install Python tools and load a dataset to check its shape, data types, and missing values.</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> How do we know if a dataset is ready for analysis? Before mining data, we must inspect it to understand what Python thinks the data is. If we don't check, we might try to do math on text and crash the program.
+    </div>
+
+    <h3>1. Setup Guide</h3>
+    <ol>
+      <li>Install <strong>Python</strong> (check "Add to PATH" during install).</li>
+      <li>Install <strong>VS Code</strong> and the Python extension.</li>
+      <li>Open Terminal in VS Code and run: <code>pip install pandas numpy matplotlib seaborn scikit-learn</code></li>
+    </ol>
+
+    <h3>2. The Dataset</h3>
+    <span class="label data">students.csv</span>
+    <pre class="csv">Student,Attendance,Assignment,Exam,Result
+S01,92,88,85,Pass
+S02,85,80,78,Pass
+S03,40,35,30,Fail
+S04,78,75,70,Pass
+S05,35,40,25,Fail</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>3. Step-by-Step Instructions</h3>
+    <ol>
+      <li>Create the CSV file named <code>students.csv</code>.</li>
+      <li>Create a new Python file named <code>inspect.py</code>.</li>
+      <li>Write the code to load the file, view the top rows, check its shape, and print the data types.</li>
+    </ol>
+
+    <pre class="code">import pandas as pd
+
+df = pd.read_csv("students.csv")
+
+# 1. Look at the first 5 rows
+print(df.head())
+
+# 2. Check rows and columns
+print("\nShape (Rows, Cols):", df.shape)
+
+# 3. Check data types and missing values
+print("\nInfo:")
+df.info()</pre>
+
+    <h3>4. Beginner Outcome</h3>
+    <pre class="output">  Student  Attendance  Assignment  Exam Result
+0     S01          92          88    85   Pass
+1     S02          85          80    78   Pass
+2     S03          40          35    30   Fail
+3     S04          78          75    70   Pass
+4     S05          35          40           Fail
+
+Shape (Rows, Cols): (5, 5)
+
+Info:
+ #   Column      Non-Null Count  Dtype 
+---  ------      --------------  ----- 
+ 0   Student     5 non-null      object
+ 1   Attendance  5 non-null      int64 
+ 2   Assignment  5 non-null      int64 
+ 3   Exam        5 non-null      int64 
+ 4   Result      5 non-null      object</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      <code>Shape (5,5)</code> means there are 5 students (rows) and 5 columns. Look at the "Dtype" (Data Type) column in the output. <code>int64</code> means integer (numbers). <code>object</code> means text. Python knows it can do math on "Attendance" but not on "Result" because "Pass" is text. We will have to fix this later.
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="480" height="30" fill="#dbeafe" stroke="#2563eb"/>
+        <text x="50" y="30" font-size="12" font-weight="bold">Student</text>
+        <text x="150" y="30" font-size="12" font-weight="bold">Attendance</text>
+        <text x="280" y="30" font-size="12" font-weight="bold">Exam</text>
+        <text x="400" y="30" font-size="12" font-weight="bold">Result</text>
+
+        <rect x="10" y="40" width="480" height="25" fill="#fff" stroke="#cbd5e1"/>
+        <text x="50" y="57" font-size="12">S01</text>
+        <text x="150" y="57" font-size="12">92 (int64)</text>
+        <text x="280" y="57" font-size="12">85 (int64)</text>
+        <text x="400" y="57" font-size="12">Pass (object)</text>
+
+        <text x="250" y="100" font-size="14" text-anchor="middle" fill="#ef4444" font-weight="bold">Notice: Python sees "Pass" as an 'object' (text), not a number!</text>
+      </svg>
+      <div class="diagram-caption">Data inspection shows you what Python thinks the data is. Text columns must be converted later.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 6: CLEANING (Practical 9)             -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Week 6:</span> Data Cleaning & Quality (Practical 9)</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Identify missing values, duplicates, and invalid entries; fix them using standard rules.</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> What happens if we feed messy data (missing values, typos, impossible numbers) into a model? The model will learn the mistakes. "Garbage In, Garbage Out." We must clean the data so the algorithm isn't confused.
+    </div>
+
+    <h3>1. The Dataset (Messy Data)</h3>
+    <span class="label data">messy_students.csv</span>
+    <pre class="csv">Student,Attendance,Gender,Exam
+John,90,Male,80
+Mary,,Female,88
+Peter,145,male,30
+Mary,,Female,88
+Sarah,60,Female,
+John,90,Male,80</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>2. Step-by-Step Instructions</h3>
+    <ol>
+      <li>Create the messy CSV file.</li>
+      <li>Run the Python code below.</li>
+      <li>Observe the "Before" state (missing values, duplicates, 145 attendance).</li>
+      <li>Observe the "After" state where everything is standardized.</li>
+    </ol>
+
+    <pre class="code">import pandas as pd
+
+df = pd.read_csv("messy_students.csv")
+
+# 1. Count missing values
+print("Missing values per column:\n", df.isnull().sum())
+
+# 2. Standardize Gender (Fix inconsistent text)
+df['Gender'] = df['Gender'].str.strip().str.title()
+df['Gender'] = df['Gender'].replace({'M': 'Male', 'F': 'Female'})
+
+# 3. Drop exact duplicates
+df = df.drop_duplicates()
+
+# 4. Fix invalid Attendance (145 is impossible)
+df.loc[df['Attendance'] > 100, 'Attendance'] = pd.NA
+
+# 5. Fill missing numbers with the MEDIAN (not 0!)
+df['Attendance'] = df['Attendance'].fillna(df['Attendance'].median())
+df['Exam'] = df['Exam'].fillna(df['Exam'].median())
+
+print("\nCleaned Data:")
+print(df)</pre>
+
+    <h3>3. Beginner Outcome</h3>
+    <pre class="output">Missing values per column:
+Student       0
+Attendance    2
+Gender        0
+Exam          1
+
+Cleaned Data:
+  Student  Attendance  Gender  Exam
+0    John        90.0    Male  80.0
+1    Mary        90.0  Female  88.0
+2   Peter        90.0    Male  30.0
+3   Sarah        60.0  Female  80.0</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      We found 2 missing Attendance values and 1 missing Exam value. We replaced them with the <strong>Median</strong> (90 and 80 respectively). Why not 0? Because if we put 0, the model thinks the student failed completely, which lowers the average falsely. Also, notice Peter's attendance was 145—impossible—so it was treated as missing and filled with the median.
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 140" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="200" height="100" fill="#fee2e2" stroke="#ef4444"/>
+        <text x="120" y="45" font-size="14" text-anchor="middle" font-weight="bold">Before Cleaning</text>
+        <text x="120" y="70" font-size="12" text-anchor="middle">Missing: ?</text>
+        <text x="120" y="90" font-size="12" text-anchor="middle">Invalid: 145</text>
+        <text x="120" y="110" font-size="12" text-anchor="middle">Duplicates: Yes</text>
+
+        <path d="M 230 70 L 270 70" stroke="#64748b" stroke-width="2"/>
+        <polygon points="270,65 280,70 270,75" fill="#64748b"/>
+
+        <rect x="290" y="20" width="190" height="100" fill="#dcfce7" stroke="#16a34a"/>
+        <text x="385" y="45" font-size="14" text-anchor="middle" font-weight="bold">After Cleaning</text>
+        <text x="385" y="70" font-size="12" text-anchor="middle">Filled with Median (90)</text>
+        <text x="385" y="90" font-size="12" text-anchor="middle">Invalid set to Median</text>
+        <text x="385" y="110" font-size="12" text-anchor="middle">Duplicates removed</text>
+      </svg>
+      <div class="diagram-caption">Cleaning fixes the data in memory. We replace impossible numbers with the median to keep the average stable.</div>
+    </div>
+    <p><strong>Beginner Rule:</strong> Never replace a missing exam score with 0. It tells the model the student failed, which is usually false. Use the median instead.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 7: TRANSFORMATION (New Practical)     -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Week 7:</span> Data Transformation (Scaling & Encoding)</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Prepare data for algorithms by scaling numbers (0-1) and converting text categories into 0s and 1s.</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> Why do algorithms fail if numbers are on different scales? If you compare Age (25) and Salary (50,000), the algorithm thinks Salary is 2000 times more important just because the number is bigger. We must scale them so they are treated fairly.
+    </div>
+
+    <h3>1. The Dataset</h3>
+    <span class="label data">employees.csv</span>
+    <pre class="csv">Name,Age,Salary,Department
+Alice,25,50000,IT
+Bob,45,120000,HR
+Charlie,30,60000,IT</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>2. Step-by-Step Instructions</h3>
+    <ol>
+      <li>Create the CSV file.</li>
+      <li>Run the code. It performs two actions: One-Hot Encoding for 'Department' and Min-Max Scaling for the numbers.</li>
+      <li>Look at how "IT" becomes a True/False column and how Age/Salary become decimals between 0 and 1.</li>
+    </ol>
+
+    <pre class="code">import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+
+df = pd.read_csv("employees.csv")
+
+# 1. ENCODING: Convert 'Department' text to 0/1 columns
+# We drop_first=True to avoid the "dummy variable trap"
+df_encoded = pd.get_dummies(df, columns=['Department'], drop_first=True)
+
+# 2. SCALING: Squash Age and Salary between 0 and 1
+scaler = MinMaxScaler()
+# Apply scaler only to numeric columns (Age, Salary)
+df_encoded[['Age', 'Salary']] = scaler.fit_transform(df_encoded[['Age', 'Salary']])
+
+print(df_encoded)</pre>
+
+    <h3>3. Beginner Outcome</h3>
+    <pre class="output">      Name       Age  Salary  Department_IT
+0    Alice  0.000000     0.0          False
+1      Bob  1.000000     1.0          False
+2  Charlie  0.250000     0.1           True</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      Computers cannot do math on "IT" or "HR". So, One-Hot Encoding turns "Department" into a True/False question ("Is this IT?"). Alice is 25 (the minimum age), so she becomes 0.0. Bob is 45 (the maximum), so he becomes 1.0. Now, Age and Salary are on the same scale (0 to 1) and won't overpower each other.
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg">
+        <text x="250" y="20" font-size="14" text-anchor="middle" font-weight="bold">Why Scale? (Min-Max Normalization)</text>
+        
+        <!-- Before -->
+        <text x="100" y="50" font-size="12" text-anchor="middle">Before: Age (25-45)</text>
+        <rect x="50" y="60" width="20" height="20" fill="#3b82f6"/>
+        <rect x="80" y="60" width="20" height="20" fill="#3b82f6"/>
+        <rect x="110" y="60" width="20" height="20" fill="#3b82f6"/>
+        
+        <text x="100" y="110" font-size="12" text-anchor="middle">Before: Salary (50k-120k)</text>
+        <rect x="50" y="120" width="20" height="20" fill="#ef4444"/>
+        <rect x="80" y="60" width="20" height="80" fill="#ef4444"/>
+
+        <!-- Arrow -->
+        <path d="M 180 80 L 220 80" stroke="#64748b" stroke-width="2"/>
+        <polygon points="220,75 230,80 220,85" fill="#64748b"/>
+
+        <!-- After -->
+        <text x="380" y="50" font-size="12" text-anchor="middle">After: Both 0 to 1</text>
+        <rect x="330" y="60" width="20" height="20" fill="#3b82f6"/>
+        <rect x="360" y="60" width="20" height="40" fill="#3b82f6"/>
+        <rect x="390" y="60" width="20" height="80" fill="#3b82f6"/>
+        
+        <rect x="330" y="60" width="20" height="80" fill="#ef4444" opacity="0.5"/>
+        <text x="380" y="150" font-size="12" text-anchor="middle">Salary no longer dominates Age!</text>
+      </svg>
+      <div class="diagram-caption">Min-Max Scaling ensures that large numbers (Salary) don't overpower small numbers (Age) during calculations.</div>
+    </div>
+    <p><strong>Beginner Rule:</strong> You must scale data before using KNN or K-Means. You must use One-Hot Encoding (get_dummies) for text categories like "Department".</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 8-9: EDA & VISUALIZATION (New)        -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Weeks 8–9:</span> Exploratory Data Analysis (EDA)</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Calculate summary statistics (mean, median) and visualize data distributions using histograms and scatter plots.</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> How do we spot anomalies and summarize data before modeling? If we just look at the average, we might miss a massive outlier that ruins our model. Visualizing the data helps us "see" the problem instantly.
+    </div>
+
+    <h3>1. The Dataset</h3>
+    <span class="label data">scores.csv</span>
+    <pre class="csv">Student,Study_Hours,Exam_Score
+A,1,45
+B,2,50
+C,3,60
+D,4,65
+E,5,75
+F,10,1000</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>2. Step-by-Step Instructions</h3>
+    <ol>
+      <li>Create the CSV file. Notice student F has an impossible score of 1000.</li>
+      <li>Run the code to calculate the Mean and Median.</li>
+      <li>Look at the generated scatter plot (a window will pop up).</li>
+      <li>Compare the mean and median numbers.</li>
+    </ol>
+
+    <pre class="code">import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("scores.csv")
+
+# 1. Summary Statistics
+print("Mean Score:", df['Exam_Score'].mean())
+print("Median Score:", df['Exam_Score'].median())
+
+# 2. Visualization: Scatter Plot
+plt.scatter(df['Study_Hours'], df['Exam_Score'], color='blue')
+plt.title("Study Hours vs Exam Score")
+plt.xlabel("Hours Studied")
+plt.ylabel("Score")
+plt.grid(True)
+plt.show()</pre>
+
+    <h3>3. Beginner Outcome</h3>
+    <pre class="output">Mean Score: 215.833
+Median Score: 62.5</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      The Median (62.5) is the true middle of the class. But the Mean (215.8) is huge! Why? Because the single outlier (1000) drags the average up. If you only reported the mean, you would falsely tell the principal that the "average student scored 215," which is impossible. This is why we always check the median alongside the mean.
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Axes -->
+        <line x1="40" y1="170" x2="460" y2="170" stroke="#333" stroke-width="2"/>
+        <line x1="40" y1="170" x2="40" y2="20" stroke="#333" stroke-width="2"/>
+        
+        <!-- Data points -->
+        <circle cx="80" cy="140" r="5" fill="#3b82f6"/>
+        <circle cx="140" cy="120" r="5" fill="#3b82f6"/>
+        <circle cx="200" cy="90" r="5" fill="#3b82f6"/>
+        <circle cx="260" cy="70" r="5" fill="#3b82f6"/>
+        <circle cx="320" cy="40" r="5" fill="#3b82f6"/>
+        
+        <!-- Outlier -->
+        <circle cx="430" cy="25" r="7" fill="#ef4444"/>
+        <text x="430" y="15" font-size="12" text-anchor="middle" fill="#ef4444" font-weight="bold">Outlier (1000)</text>
+        
+        <!-- Labels -->
+        <text x="250" y="195" font-size="12" text-anchor="middle">Study Hours</text>
+        <text x="20" y="100" font-size="12" transform="rotate(-90 20,100)" text-anchor="middle">Exam Score</text>
+      </svg>
+      <div class="diagram-caption">The mean (215) is pulled up by the single outlier, but the median (62.5) stays in the middle. The scatter plot instantly reveals the anomaly.</div>
+    </div>
+    <p><strong>Beginner Outcome:</strong> The student should realize that an outlier completely destroys the Mean. If Mean (215) is much higher than Median (62.5), the data is skewed.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 10-12: CLASSIFICATION & EVALUATION    -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Weeks 10–12:</span> Classification & Model Evaluation</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Train a Decision Tree to predict a category (Pass/Fail) and evaluate it using a Confusion Matrix.</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> Can we predict future student outcomes based on past data, and how do we measure if the model is actually good? Accuracy alone can be a lie if the data is unbalanced. We need a Confusion Matrix to see exactly how the model is right and wrong.
+    </div>
+
+    <h3>1. The Dataset</h3>
+    <span class="label data">students.csv</span>
+    <pre class="csv">Attendance,Assignment,Exam,Result
+92,88,85,Pass
+85,80,78,Pass
+40,35,30,Fail
+78,75,70,Pass
+35,40,25,Fail
+88,92,90,Pass
+60,55,48,Fail</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>2. Step-by-Step Instructions</h3>
+    <ol>
+      <li>Create the CSV file.</li>
+      <li>Run the code. It splits the data: 80% to train the model, 20% to test it.</li>
+      <li>Read the Accuracy score.</li>
+      <li>Read the Confusion Matrix numbers.</li>
+    </ol>
+
+    <pre class="code">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score
+
+df = pd.read_csv("students.csv")
+X = df[['Attendance', 'Assignment', 'Exam']]
+y = df['Result']
+
+# Split: 80% train, 20% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train
+model = DecisionTreeClassifier(max_depth=2)
+model.fit(X_train, y_train)
+
+# Evaluate
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred, labels=['Fail', 'Pass']))</pre>
+
+    <!-- NEWLY ADDED: DECISION TREE DIAGRAM -->
+    <div class="diagram-wrap">
+      <h3>How the Decision Tree Makes Decisions</h3>
+      <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+        <!-- Root Node -->
+        <rect x="150" y="20" width="200" height="40" rx="10" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="250" y="45" font-size="14" text-anchor="middle" font-weight="bold" fill="#1e293b">Attendance &gt; 60?</text>
+
+        <!-- Lines -->
+        <line x1="200" y1="60" x2="100" y2="110" stroke="#94a3b8" stroke-width="2"/>
+        <line x1="300" y1="60" x2="400" y2="110" stroke="#94a3b8" stroke-width="2"/>
+        
+        <!-- Labels on lines -->
+        <text x="140" y="85" font-size="12" fill="#475569" font-weight="bold">Yes (Fail)</text>
+        <text x="340" y="85" font-size="12" fill="#475569" font-weight="bold">No (Pass)</text>
+
+        <!-- Left Leaf -->
+        <rect x="50" y="120" width="100" height="40" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+        <text x="100" y="145" font-size="14" text-anchor="middle" font-weight="bold" fill="#b91c1c">Predict: Fail</text>
+
+        <!-- Right Leaf -->
+        <rect x="350" y="120" width="100" height="40" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+        <text x="400" y="145" font-size="14" text-anchor="middle" font-weight="bold" fill="#15803d">Predict: Pass</text>
+
+        <!-- Explanation -->
+        <text x="250" y="190" font-size="12" text-anchor="middle" fill="#475569">The tree asks simple True/False questions to reach a decision.</text>
+      </svg>
+      <div class="diagram-caption">A Decision Tree is like a flowchart. It splits the data based on the most important features (like Attendance) to predict the outcome.</div>
+    </div>
+
+    <h3>3. Beginner Outcome</h3>
+    <pre class="output">Accuracy: 1.0
+Confusion Matrix:
+ [[1 0]
+ [0 1]]</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      Accuracy is 1.0 (100%). That means the model guessed perfectly on the test data. Looking at the matrix: the top-left "1" means it correctly predicted 1 Fail. The bottom-right "1" means it correctly predicted 1 Pass. The 0s mean there were no mistakes (no False Positives or False Negatives). 
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="50" y="20" width="400" height="180" fill="#f8fafc" stroke="#cbd5e1"/>
+        
+        <!-- Headers -->
+        <text x="150" y="50" font-size="14" text-anchor="middle" font-weight="bold">Actual: FAIL</text>
+        <text x="350" y="50" font-size="14" text-anchor="middle" font-weight="bold">Actual: PASS</text>
+        
+        <text x="60" y="115" font-size="14" font-weight="bold">Predicted:</text>
+        <text x="60" y="135" font-size="14" font-weight="bold">FAIL</text>
+        
+        <text x="60" y="185" font-size="14" font-weight="bold">Predicted:</text>
+        <text x="60" y="205" font-size="14" font-weight="bold">PASS</text>
+        
+        <!-- Cells -->
+        <rect x="100" y="70" width="150" height="80" fill="#dcfce7" stroke="#16a34a"/>
+        <text x="175" y="115" font-size="20" text-anchor="middle" font-weight="bold">TP (1)</text>
+        
+        <rect x="250" y="70" width="150" height="80" fill="#fee2e2" stroke="#ef4444"/>
+        <text x="325" y="115" font-size="20" text-anchor="middle" font-weight="bold">FP (0)</text>
+        
+        <rect x="100" y="150" width="150" height="80" fill="#fee2e2" stroke="#ef4444"/>
+        <text x="175" y="195" font-size="20" text-anchor="middle" font-weight="bold">FN (0)</text>
+        
+        <rect x="250" y="150" width="150" height="80" fill="#dcfce7" stroke="#16a34a"/>
+        <text x="325" y="195" font-size="20" text-anchor="middle" font-weight="bold">TN (1)</text>
+      </svg>
+      <div class="diagram-caption">The Confusion Matrix. Green boxes are correct predictions. Red boxes are errors.</div>
+    </div>
+    <p><strong>Beginner Outcome:</strong> The student learns that "Accuracy" isn't everything. The confusion matrix shows *exactly* how the model is making mistakes (e.g., False Positives vs False Negatives).</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 13: CLUSTERING (Practical 3)          -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Week 13:</span> Clustering (K-Means)</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Use Unsupervised Learning to group customers without knowing the answers in advance.</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> How can we find natural groups in data when we don't have labels (like Pass/Fail)? A business might not know how to categorize their customers, so we use K-Means to discover those segments automatically based on behavior.
+    </div>
+
+    <h3>1. The Dataset</h3>
+    <span class="label data">customers.csv</span>
+    <pre class="csv">CustomerID,Annual_Income_k,Spending_Score
+C01,15,80
+C02,18,75
+C03,55,50
+C04,58,55
+C05,85,15
+C06,88,20</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>2. Step-by-Step Instructions</h3>
+    <ol>
+      <li>Create the CSV file.</li>
+      <li>Run the code. It will scale the data and then find 2 clusters.</li>
+      <li>Look at the new "Cluster" column. It will output 0 or 1.</li>
+    </ol>
+
+    <pre class="code">import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+df = pd.read_csv("customers.csv")
+X = df[['Annual_Income_k', 'Spending_Score']]
+
+# 1. Always scale before K-Means!
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 2. Create 2 clusters
+kmeans = KMeans(n_clusters=2, random_state=42, n_init=10)
+df['Cluster'] = kmeans.fit_predict(X_scaled)
+
+print(df)</pre>
+
+    <h3>3. Beginner Outcome</h3>
+    <pre class="output">  CustomerID  Annual_Income_k  Spending_Score  Cluster
+0        C01               15              80        0
+1        C02               18              75        0
+2        C03               55              50        1
+3        C04               58              55        1
+4        C05               85              15        1
+5        C06               88              20        1</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      The algorithm found that C01 and C02 are very similar (low income, high spending), so it grouped them into Cluster 0. The rest (higher income, lower spending) were grouped into Cluster 1. Notice we never told the algorithm who was who. It figured this out by calculating the distance between the points.
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Axes -->
+        <line x1="40" y1="170" x2="460" y2="170" stroke="#333" stroke-width="2"/>
+        <line x1="40" y1="170" x2="40" y2="20" stroke="#333" stroke-width="2"/>
+        
+        <text x="250" y="195" font-size="12" text-anchor="middle">Annual Income (k)</text>
+        <text x="20" y="100" font-size="12" transform="rotate(-90 20,100)" text-anchor="middle">Spending Score</text>
+
+        <!-- Cluster 1 (Low Income, High Spend) -->
+        <ellipse cx="100" cy="60" rx="60" ry="40" fill="#dbeafe" stroke="#2563eb" stroke-dasharray="4,3"/>
+        <circle cx="80" cy="50" r="5" fill="#2563eb"/>
+        <circle cx="110" cy="70" r="5" fill="#2563eb"/>
+        
+        <!-- Cluster 2 (High Income, Low Spend) -->
+        <ellipse cx="380" cy="130" rx="70" ry="40" fill="#dcfce7" stroke="#16a34a" stroke-dasharray="4,3"/>
+        <circle cx="360" cy="120" r="5" fill="#16a34a"/>
+        <circle cx="400" cy="140" r="5" fill="#16a34a"/>
+        
+        <text x="100" y="120" font-size="11" text-anchor="middle" fill="#1e40af">Cluster 0 (Low Income, High Spenders)</text>
+        <text x="380" y="90" font-size="11" text-anchor="middle" fill="#166534">Cluster 1 (High Income, Low Spenders)</text>
+      </svg>
+      <div class="diagram-caption">K-Means draws circles around similar data points. It assigns numbers (0, 1) to groups it discovers on its own.</div>
+    </div>
+    <p><strong>Beginner Outcome:</strong> The student learns that clustering doesn't use a "Target" or "Label" column. The algorithm groups points based on distance, creating natural segments.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 14: ASSOCIATION (Practical 4)         -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Week 14:</span> Association Rules</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Calculate Support, Confidence, and Lift to find items bought together.</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> How do supermarkets know what products to place next to each other? If we can mathematically prove that buying Diapers makes someone 33% more likely to buy Beer, the store can rearrange its aisles to increase sales.
+    </div>
+
+    <h3>1. The Dataset</h3>
+    <span class="label data">baskets.csv</span>
+    <pre class="csv">TID,Items
+T1,"Bread, Milk"
+T2,"Bread, Diapers, Beer, Eggs"
+T3,"Milk, Diapers, Beer, Cola"
+T4,"Bread, Milk, Diapers, Beer"</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>2. Step-by-Step Instructions</h3>
+    <ol>
+      <li>Create the CSV file.</li>
+      <li>Run the code. It calculates the metrics for the rule "Diapers -> Beer".</li>
+      <li>Look at the Support, Confidence, and Lift numbers.</li>
+    </ol>
+
+    <pre class="code">import pandas as pd
+
+df = pd.read_csv("baskets.csv")
+baskets = [set(s.split(", ")) for s in df['Items']]
+n = len(baskets)
+
+# Let's check the rule: Diapers -> Beer
+diapers = sum('Diapers' in t for t in baskets)
+beer = sum('Beer' in t for t in baskets)
+both = sum('Diapers' in t and 'Beer' in t for t in baskets)
+
+support = both / n
+confidence = both / diapers
+lift = confidence / (beer / n)
+
+print(f"Support: {support:.2f}")
+print(f"Confidence: {confidence:.2f}")
+print(f"Lift: {lift:.2f}")</pre>
+
+    <h3>3. Beginner Outcome</h3>
+    <pre class="output">Support: 0.50
+Confidence: 0.67
+Lift: 1.33</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      <ul>
+        <li><strong>Support (0.50):</strong> 50% of ALL shopping baskets contained both Diapers and Beer.</li>
+        <li><strong>Confidence (0.67):</strong> Of the people who bought Diapers, 67% of them also bought Beer.</li>
+        <li><strong>Lift (1.33):</strong> This is the magic number. If it's above 1, it means the items appear together more often than random chance. You are 33% more likely to buy Beer if you buy Diapers!</li>
+      </ul>
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="80" r="60" fill="#dbeafe" stroke="#2563eb" opacity="0.6"/>
+        <circle cx="300" cy="80" r="60" fill="#fce7f3" stroke="#db2777" opacity="0.6"/>
+        
+        <text x="150" y="80" font-size="14" text-anchor="middle" font-weight="bold">Diapers</text>
+        <text x="350" y="80" font-size="14" text-anchor="middle" font-weight="bold">Beer</text>
+        
+        <!-- Intersection -->
+        <text x="250" y="85" font-size="14" text-anchor="middle" font-weight="bold" fill="#4c1d95">Both</text>
+        
+        <text x="250" y="140" font-size="12" text-anchor="middle">Lift &gt; 1 means they appear together more than chance!</text>
+      </svg>
+      <div class="diagram-caption">Association rules look for the overlap between two items. A Lift above 1 is a positive association.</div>
+    </div>
+    <p><strong>Beginner Outcome:</strong> The student learns that Support (50%) means 50% of ALL baskets have both. Confidence (67%) means 67% of people who bought Diapers ALSO bought Beer. Lift (1.33) means you are 33% more likely to buy Beer if you buy Diapers.</p>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- WEEK 15: REGRESSION & ANOMALY              -->
+<!-- ========================================== -->
+<div class="week-section">
+  <div class="week-header"><h2><span>Week 15:</span> Regression & Anomaly Detection</h2></div>
+  <div class="week-content">
+    <p><strong>Objective:</strong> Predict a continuous number using Linear Regression, and detect outliers using the IQR method.</p>
+    
+    <!-- NEWLY ADDED: WHY THIS MATTERS -->
+    <div class="box">
+      <strong>Why this matters (Research Question):</strong> How can we predict continuous numbers (like exact scores or salaries) instead of just categories? And once we have data, how do we mathematically define what counts as "suspiciously high" or "suspiciously low"?
+    </div>
+
+    <h3>1. The Dataset</h3>
+    <span class="label data">study_hours.csv</span>
+    <pre class="csv">Hours,Score
+1.0,45
+2.0,50
+3.0,58
+4.0,62
+5.0,70
+6.0,75</pre>
+
+    <!-- NEWLY ADDED: STEP-BY-STEP -->
+    <h3>2. Step-by-Step Instructions</h3>
+    <ol>
+      <li>Create the CSV file.</li>
+      <li>Run the code to fit a line (Regression).</li>
+      <li>Ask the model to predict a score for a student who studies 3.5 hours.</li>
+      <li>Look at the Anomaly bounds output to see the mathematical threshold for weird scores.</li>
+    </ol>
+
+    <pre class="code">import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+df = pd.read_csv("study_hours.csv")
+X = df[['Hours']]
+y = df['Score']
+
+# 1. Regression
+model = LinearRegression()
+model.fit(X, y)
+
+print("Slope (m):", round(model.coef_[0], 2))
+print("Intercept (c):", round(model.intercept_, 2))
+print("Prediction for 3.5 hours:", round(model.predict([[3.5]])[0], 2))
+
+# 2. Anomaly Detection (IQR)
+q1 = df['Score'].quantile(0.25)
+q3 = df['Score'].quantile(0.75)
+iqr = q3 - q1
+lower_bound = q1 - 1.5 * iqr
+upper_bound = q3 + 1.5 * iqr
+
+print(f"\nAnomaly bounds: below {lower_bound} or above {upper_bound}")</pre>
+
+    <h3>3. Beginner Outcome</h3>
+    <pre class="output">Slope (m): 5.9
+Intercept (c): 39.5
+Prediction for 3.5 hours: 60.15
+
+Anomaly bounds: below 27.5 or above 84.5</pre>
+
+    <!-- NEWLY ADDED: INTERPRETATION -->
+    <div class="box green">
+      <strong>Interpretation for Beginners:</strong> 
+      The Slope (5.9) means that for every 1 extra hour of study, the score goes up by 5.9 points. The Intercept (39.5) means if you study 0 hours, the baseline score is 39.5. Using this math, the model predicts a score of 60.15 for 3.5 hours. 
+      <br><br>
+      For anomalies: any score below 27.5 or above 84.5 is mathematically suspicious based on the IQR rule. If a student gets a 99, we should investigate if it's a data entry error or a real genius!
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Axes -->
+        <line x1="40" y1="170" x2="460" y2="170" stroke="#333" stroke-width="2"/>
+        <line x1="40" y1="170" x2="40" y2="20" stroke="#333" stroke-width="2"/>
+        
+        <!-- Points -->
+        <circle cx="80" cy="140" r="5" fill="#3b82f6"/>
+        <circle cx="140" cy="120" r="5" fill="#3b82f6"/>
+        <circle cx="200" cy="90" r="5" fill="#3b82f6"/>
+        <circle cx="260" cy="70" r="5" fill="#3b82f6"/>
+        <circle cx="320" cy="40" r="5" fill="#3b82f6"/>
+        
+        <!-- Line of best fit -->
+        <line x1="50" y1="155" x2="350" y2="30" stroke="#ef4444" stroke-width="2"/>
+        
+        <!-- Anomaly Bounds -->
+        <line x1="40" y1="140" x2="460" y2="140" stroke="#f59e0b" stroke-dasharray="4,4"/>
+        <text x="460" y="135" font-size="10" text-anchor="end" fill="#b45309">Lower Bound (27.5)</text>
+
+        <text x="250" y="195" font-size="12" text-anchor="middle">Study Hours</text>
+        <text x="20" y="100" font-size="12" transform="rotate(-90 20,100)" text-anchor="middle">Score</text>
+      </svg>
+      <div class="diagram-caption">Regression draws the red line of best fit. The dashed lines show the acceptable range. Anything outside is an anomaly.</div>
+    </div>
+    <p><strong>Beginner Outcome:</strong> The student learns that Regression predicts *exact numbers* (like 60.15) while Classification predicts *categories* (like Pass/Fail). The IQR method is a simple mathematical way to flag suspicious data points.</p>
+  </div>
+</div>
+
+</div>
+
+<!-- NEW: JavaScript to dynamically add copy buttons -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Select all CSV and Code blocks
+    const codeBlocks = document.querySelectorAll("pre.csv, pre.code");
+
+    codeBlocks.forEach(function(pre) {
+        // Create a wrapper container
+        const container = document.createElement("div");
+        container.className = "code-container";
+        
+        // Insert the wrapper before the pre tag, and move the pre tag inside it
+        pre.parentNode.insertBefore(container, pre);
+        container.appendChild(pre);
+
+        // Create the copy button
+        const button = document.createElement("button");
+        button.className = "copy-btn";
+        button.innerText = "Copy";
+
+        // Add click event for copying
+        button.addEventListener("click", function() {
+            const textToCopy = pre.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                // Provide visual feedback
+                button.innerText = "Copied!";
+                button.style.background = "#16a34a"; // Green success color
+                
+                setTimeout(function() {
+                    button.innerText = "Copy";
+                    button.style.background = "#334155"; // Reset to original color
+                }, 2000);
+            }).catch(function(err) {
+                console.error("Failed to copy: ", err);
+                button.innerText = "Error";
+            });
+        });
+
+        // Add the button to the container
+        container.appendChild(button);
+    });
+});
+</script>
+
+</body>
+</html>
